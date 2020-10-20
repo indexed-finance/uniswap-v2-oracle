@@ -1,0 +1,9 @@
+dist: trusty
+language: node_js
+node_js:
+  - '10'
+install:
+  - npm install
+script:
+  - npx buidler run coverage
+  - cat coverage/lcov.info | coveralls
