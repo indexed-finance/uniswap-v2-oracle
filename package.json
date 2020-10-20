@@ -1,5 +1,5 @@
 {
-  "name": "indexed-map",
+  "name": "@indexed-finance/uniswap-v2-oracle",
   "version": "1.0.0",
   "description": "",
   "main": "buidler.config.js",

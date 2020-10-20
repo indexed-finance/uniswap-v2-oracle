@@ -8,7 +8,7 @@ contract ExampleMapIndex {
 
   mapping(uint256 => uint256) internal _keyIndex;
   mapping(uint256 => uint256) internal _valueMap;
-// 25094
+
   function writeValue(uint256 mapKey, uint256 value) external {
     _valueMap[mapKey] = value;
     _keyIndex.markSetKey(mapKey);
