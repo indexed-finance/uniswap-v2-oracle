@@ -267,8 +267,8 @@ describe('IndexedUniswapV2Oracle', async () => {
     it('getPriceObservationInWindow()', async () => {
       const priceObservation = await oracle.getPriceObservationInWindow(token0.address, timestampUpdated);
       expect(priceObservation.timestamp).to.eq(timestampUpdated);
-      expect(priceObservation.priceCumulativeLast).to.eq(expectedPrice0.tokenPriceCumulativeLast);
-      expect(priceObservation.ethPriceCumulativeLast).to.eq(expectedPrice0.ethPriceCumulativeLast);
+      expect(priceObservation.priceCumulativeLast.eq(expectedPrice0.tokenPriceCumulativeLast)).to.be.true;
+      expect(priceObservation.ethPriceCumulativeLast.eq(expectedPrice0.ethPriceCumulativeLast)).to.be.true;
     });
 
     it('computeTwoWayAveragePrice()', async () => {
