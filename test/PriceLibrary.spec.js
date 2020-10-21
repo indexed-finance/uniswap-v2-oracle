@@ -118,20 +118,17 @@ describe('PriceLibrary', async () => {
       blockTimestamp,
       tokenPriceAverage,
       ethPriceAverage
-    }) => {
-      const full = {
-        observation: {
-          timestamp: blockTimestamp,
-          priceCumulativeLast: BigNumber.from(tokenPriceCumulativeLast),
-          ethPriceCumulativeLast: BigNumber.from(ethPriceCumulativeLast)
-        },
-        twoWayPrice: {
-          priceAverage: BigNumber.from(tokenPriceAverage || 0),
-          ethPriceAverage: BigNumber.from(ethPriceAverage || 0),
-        }
-      };
-      return full;
-    };
+    }) => ({
+      observation: {
+        timestamp: blockTimestamp,
+        priceCumulativeLast: BigNumber.from(tokenPriceCumulativeLast),
+        ethPriceCumulativeLast: BigNumber.from(ethPriceCumulativeLast)
+      },
+      twoWayPrice: {
+        priceAverage: BigNumber.from(tokenPriceAverage || 0),
+        ethPriceAverage: BigNumber.from(ethPriceAverage || 0),
+      }
+    });
 
     let oldPrice0, newPrice0;
     let oldPrice1, newPrice1;
@@ -209,8 +206,8 @@ describe('PriceLibrary', async () => {
       const tokenAmount = expandTo18Decimals(100);
       const expectedValue0 = expectedPrice0.tokenPriceAverage.mul(tokenAmount).div(BigNumber.from(2).pow(112));
       const expectedValue1 = expectedPrice1.tokenPriceAverage.mul(tokenAmount).div(BigNumber.from(2).pow(112));
-      const tokenValue0 = await library.computeAverageEthForTokens(newPrice0.price, tokenAmount);
-      const tokenValue1 = await library.computeAverageEthForTokens(newPrice1.price, tokenAmount);
+      const tokenValue0 = await library.computeAverageEthForTokens(newPrice0.twoWayPrice, tokenAmount);
+      const tokenValue1 = await library.computeAverageEthForTokens(newPrice1.twoWayPrice, tokenAmount);
       expect(tokenValue0.eq(expectedValue0)).to.be.true;
       expect(tokenValue1.eq(expectedValue1)).to.be.true;
     });
@@ -219,8 +216,8 @@ describe('PriceLibrary', async () => {
       const wethAmount = expandTo18Decimals(100);
       const expectedValue0 = expectedPrice0.ethPriceAverage.mul(wethAmount).div(BigNumber.from(2).pow(112));
       const expectedValue1 = expectedPrice1.ethPriceAverage.mul(wethAmount).div(BigNumber.from(2).pow(112));
-      const ethValue0 = await library.computeAverageTokensForEth(newPrice0.price, wethAmount);
-      const ethValue1 = await library.computeAverageTokensForEth(newPrice1.price, wethAmount);
+      const ethValue0 = await library.computeAverageTokensForEth(newPrice0.twoWayPrice, wethAmount);
+      const ethValue1 = await library.computeAverageTokensForEth(newPrice1.twoWayPrice, wethAmount);
       expect(ethValue0.eq(expectedValue0)).to.be.true;
       expect(ethValue1.eq(expectedValue1)).to.be.true;
     });
