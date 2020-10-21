@@ -38,6 +38,7 @@ describe('PriceLibrary', async () => {
   let expectedPrice1;
 
   async function addLiquidity0() {
+    await fastForward(60);
     await token0.getFreeTokens(pair0.address, token0Amount);
     await weth.getFreeTokens(pair0.address, wethAmount);
     const timestamp = await getTransactionTimestamp(pair0.mint(deployer, overrides));
@@ -77,8 +78,8 @@ describe('PriceLibrary', async () => {
       await addLiquidity0();
       await addLiquidity1();
       const timestamp = await bre.run('getTimestamp');
-      expectedPrice0 = encodePrice(0, 0, timestamp, expectedPrice0);
-      expectedPrice1 = encodePrice(0, 0, timestamp, expectedPrice1);
+      expectedPrice0 = encodePrice(0, 0, +timestamp, expectedPrice0);
+      expectedPrice1 = encodePrice(0, 0, +timestamp, expectedPrice1);
       expect(await library.pairInitialized(token0.address, weth.address)).to.be.true;
       expect(await library.pairInitialized(token1.address, weth.address)).to.be.true;
     });
@@ -92,10 +93,10 @@ describe('PriceLibrary', async () => {
       expect(tokenPriceObservation1.timestamp).to.eq(expectedPrice1.blockTimestamp);
       expect(ethPriceObservation0.timestamp).to.eq(expectedPrice0.blockTimestamp);
       expect(ethPriceObservation1.timestamp).to.eq(expectedPrice1.blockTimestamp);
-      expect(tokenPriceObservation0.priceCumulativeLast).to.eq(expectedPrice0.tokenPriceCumulativeLast);
-      expect(tokenPriceObservation1.priceCumulativeLast).to.eq(expectedPrice1.tokenPriceCumulativeLast);
-      expect(ethPriceObservation0.priceCumulativeLast).to.eq(expectedPrice0.ethPriceCumulativeLast);
-      expect(ethPriceObservation1.priceCumulativeLast).to.eq(expectedPrice1.ethPriceCumulativeLast);
+      expect(tokenPriceObservation0.priceCumulativeLast.eq(expectedPrice0.tokenPriceCumulativeLast)).to.be.true;
+      expect(tokenPriceObservation1.priceCumulativeLast.eq(expectedPrice1.tokenPriceCumulativeLast)).to.be.true;
+      expect(ethPriceObservation0.priceCumulativeLast.eq(expectedPrice0.ethPriceCumulativeLast)).to.be.true;
+      expect(ethPriceObservation1.priceCumulativeLast.eq(expectedPrice1.ethPriceCumulativeLast)).to.be.true;
     });
 
     it('observeTwoWayPrice() succeeds and returns correct values', async () => {
@@ -103,10 +104,10 @@ describe('PriceLibrary', async () => {
       const priceObservation1 = await library.observeTwoWayPrice(token1.address, weth.address);
       expect(priceObservation0.timestamp).to.eq(expectedPrice0.blockTimestamp);
       expect(priceObservation1.timestamp).to.eq(expectedPrice1.blockTimestamp);
-      expect(priceObservation0.priceCumulativeLast).to.eq(expectedPrice0.tokenPriceCumulativeLast);
-      expect(priceObservation1.priceCumulativeLast).to.eq(expectedPrice1.tokenPriceCumulativeLast);
-      expect(priceObservation0.ethPriceCumulativeLast).to.eq(expectedPrice0.ethPriceCumulativeLast);
-      expect(priceObservation1.ethPriceCumulativeLast).to.eq(expectedPrice1.ethPriceCumulativeLast);
+      expect(priceObservation0.priceCumulativeLast.eq(expectedPrice0.tokenPriceCumulativeLast)).to.be.true;
+      expect(priceObservation1.priceCumulativeLast.eq(expectedPrice1.tokenPriceCumulativeLast)).to.be.true;
+      expect(priceObservation0.ethPriceCumulativeLast.eq(expectedPrice0.ethPriceCumulativeLast)).to.be.true;
+      expect(priceObservation1.ethPriceCumulativeLast.eq(expectedPrice1.ethPriceCumulativeLast)).to.be.true;
     });
   });
 
@@ -145,11 +146,11 @@ describe('PriceLibrary', async () => {
     });
 
     it('computeTwoWayAveragePrice() returns correct values', async () => {
-      const price0 = await library.computeTwoWayAveragePrice(oldPrice0.observation, newPrice0.observation);
+      const price0 = await library.callStatic.computeTwoWayAveragePrice(oldPrice0.observation, newPrice0.observation);
       expect(price0.priceAverage.eq(expectedPrice0.tokenPriceAverage)).to.be.true;
       expect(price0.ethPriceAverage.eq(expectedPrice0.ethPriceAverage)).to.be.true;
 
-      const price1 = await library.computeTwoWayAveragePrice(oldPrice1.observation, newPrice1.observation);
+      const price1 = await library.callStatic.computeTwoWayAveragePrice(oldPrice1.observation, newPrice1.observation);
       expect(price1.priceAverage.eq(expectedPrice1.tokenPriceAverage)).to.be.true;
       expect(price1.ethPriceAverage.eq(expectedPrice1.ethPriceAverage)).to.be.true;
     });
@@ -208,8 +209,8 @@ describe('PriceLibrary', async () => {
       const tokenAmount = expandTo18Decimals(100);
       const expectedValue0 = expectedPrice0.tokenPriceAverage.mul(tokenAmount).div(BigNumber.from(2).pow(112));
       const expectedValue1 = expectedPrice1.tokenPriceAverage.mul(tokenAmount).div(BigNumber.from(2).pow(112));
-      const tokenValue0 = await library.computeAverageEthForTokens(newPrice0.twoWayPrice, tokenAmount);
-      const tokenValue1 = await library.computeAverageEthForTokens(newPrice1.twoWayPrice, tokenAmount);
+      const tokenValue0 = await library.computeAverageEthForTokens(newPrice0.price, tokenAmount);
+      const tokenValue1 = await library.computeAverageEthForTokens(newPrice1.price, tokenAmount);
       expect(tokenValue0.eq(expectedValue0)).to.be.true;
       expect(tokenValue1.eq(expectedValue1)).to.be.true;
     });
@@ -218,8 +219,8 @@ describe('PriceLibrary', async () => {
       const wethAmount = expandTo18Decimals(100);
       const expectedValue0 = expectedPrice0.ethPriceAverage.mul(wethAmount).div(BigNumber.from(2).pow(112));
       const expectedValue1 = expectedPrice1.ethPriceAverage.mul(wethAmount).div(BigNumber.from(2).pow(112));
-      const ethValue0 = await library.computeAverageTokensForEth(newPrice0.twoWayPrice, wethAmount);
-      const ethValue1 = await library.computeAverageTokensForEth(newPrice1.twoWayPrice, wethAmount);
+      const ethValue0 = await library.computeAverageTokensForEth(newPrice0.price, wethAmount);
+      const ethValue1 = await library.computeAverageTokensForEth(newPrice1.price, wethAmount);
       expect(ethValue0.eq(expectedValue0)).to.be.true;
       expect(ethValue1.eq(expectedValue1)).to.be.true;
     });
