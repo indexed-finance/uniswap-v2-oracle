@@ -5,10 +5,10 @@ const Logger = require('./lib/logger');
 const Deployer = require('./lib/deployer');
 const { toBN, toHex, oneToken } = require('./lib/bn');
 
-usePlugin("@nomiclabs/buidler-waffle");
+// usePlugin("@nomiclabs/buidler-waffle");
 usePlugin("buidler-ethers-v5");
 usePlugin("buidler-deploy");
-usePlugin("@nomiclabs/buidler-web3");
+// usePlugin("@nomiclabs/buidler-web3");
 usePlugin("solidity-coverage");
 
 internalTask('deploy-test-token-and-market', 'Deploy a test token and Uniswap market pair for it and WETH')
@@ -180,24 +180,16 @@ internalTask('update-prices', 'Update the prices for a list of tokens')
   });
 
 internalTask('getTimestamp', () => {
-  return web3.eth.getBlock('latest').then(b => b.timestamp);
+  return ethers.provider.getBlock('latest').then(b => b.timestamp);
 });
 
 internalTask('increaseTime', 'Increases the node timestamp')
   .setAction(async ({ days, hours, seconds }) => {
     const amount = days ? days * 86400 : hours ? hours * 3600 : seconds;
-    await web3.currentProvider._sendJsonRpcRequest({
-      method: "evm_increaseTime",
-      params: [amount],
-      jsonrpc: "2.0",
-      id: new Date().getTime()
-    });
+    await bre.ethers.provider.send('evm_increaseTime', [amount]);
+    await bre.ethers.provider.send('evm_mine', []);
   });
 
-// You have to export an object to set up your config
-// This object can have the following optional entries:
-// defaultNetwork, networks, solc, and paths.
-// Go to https://buidler.dev/config/ to learn more
 module.exports = {
   external: {
     artifacts: [
@@ -221,9 +213,9 @@ module.exports = {
   },
   solc: {
     version: "0.6.8",
-    // optimizer: {
-    //   enabled: true,
-    //   runs: 200
-    // }
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
   },
 };

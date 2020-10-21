@@ -8,11 +8,11 @@ const DAY = 86400;
 const WEEK = 604800;
 
 async function mineBlock(timestamp) {
-  return bre.waffle.provider.send('evm_mine', timestamp ? [timestamp] : [])
+  return bre.ethers.provider.send('evm_mine', timestamp ? [timestamp] : [])
 }
 
 async function fastForward(seconds) {
-  await bre.waffle.provider.send('evm_increaseTime', [seconds]);
+  await bre.ethers.provider.send('evm_increaseTime', [seconds]);
   await mineBlock();
 }
 
@@ -68,7 +68,7 @@ function encodePrice(_tokenReserves, _wethReserves, _blockTimestamp, lastPrice =
 async function getTransactionTimestamp(_tx) {
   const tx = await Promise.resolve(_tx)
   const receipt = await tx.wait();
-  const { timestamp } = await web3.eth.getBlock(receipt.blockNumber);
+  const { timestamp } = await ethers.provider.getBlock(receipt.blockNumber);
   return timestamp;
 }
 
