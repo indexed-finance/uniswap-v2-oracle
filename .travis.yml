@@ -5,5 +5,5 @@ node_js:
 install:
   - npm install
 script:
-  - npx buidler run coverage
+  - npm run coverage
   - cat coverage/lcov.info | coveralls
