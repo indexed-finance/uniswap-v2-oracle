@@ -3,9 +3,12 @@
   "version": "1.0.1",
   "description": "",
   "main": "buidler.config.js",
-  "directories": {
-    "test": "test"
-  },
+  "files": [
+    "contracts",
+    "artifacts",
+    "deployments/rinkeby",
+    "deployments/mainnet"
+  ],
   "scripts": {
     "build": "buidler compile",
     "coverage": "buidler coverage --network coverage --solcoverjs ./.solcover.js",
