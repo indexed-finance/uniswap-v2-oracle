@@ -58,7 +58,7 @@ describe('IndexedUniswapV2Oracle', async () => {
     it('getPriceInWindow() reverts if there is no price for the window', async () => {
       await expect(
         oracle.getPriceObservationInWindow(token0.address, 0)
-      ).to.be.rejectedWith(/IndexedUniswapV2Oracle::getPriceObservationInWindow: No price observed in window for provided timestamp\./g);
+      ).to.be.rejectedWith(/IndexedUniswapV2Oracle::getPriceObservationInWindow: No price observed in given hour\./g);
     });
 
     it('updatePrice() reverts if a pair has no reserves', async () => {
@@ -260,12 +260,12 @@ describe('IndexedUniswapV2Oracle', async () => {
     });
 
     it('hasPriceObservationInWindow()', async () => {
-      expect(await oracle.hasPriceObservationInWindow(token0.address, timestampUpdated)).to.be.true;
+      expect(await oracle.hasPriceObservationInWindow(token0.address, Math.floor(timestampUpdated / 3600))).to.be.true;
       expect(await oracle.hasPriceObservationInWindow(token0.address, 0)).to.be.false;
     });
 
     it('getPriceObservationInWindow()', async () => {
-      const priceObservation = await oracle.getPriceObservationInWindow(token0.address, timestampUpdated);
+      const priceObservation = await oracle.getPriceObservationInWindow(token0.address, Math.floor(timestampUpdated / 3600));
       expect(priceObservation.timestamp).to.eq(timestampUpdated);
       expect(priceObservation.priceCumulativeLast.eq(expectedPrice0.tokenPriceCumulativeLast)).to.be.true;
       expect(priceObservation.ethPriceCumulativeLast.eq(expectedPrice0.ethPriceCumulativeLast)).to.be.true;
