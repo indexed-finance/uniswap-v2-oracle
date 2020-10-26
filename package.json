@@ -1,6 +1,6 @@
 {
   "name": "@indexed-finance/uniswap-v2-oracle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "buidler.config.js",
   "directories": {
