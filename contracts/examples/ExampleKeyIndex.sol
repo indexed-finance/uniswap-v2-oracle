@@ -3,7 +3,11 @@ pragma solidity ^0.6.0;
 
 import "../lib/KeyIndex.sol";
 
-contract ExampleMapIndex {
+
+/**
+ * @dev Example usage of the KeyIndex library.
+ */
+contract ExampleKeyIndex {
   using KeyIndex for *;
 
   mapping(uint256 => uint256) internal _keyIndex;
