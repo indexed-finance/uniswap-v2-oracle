@@ -8,10 +8,5 @@ module.exports = {
     'examples/',
     'interfaces/',
     'lib/FixedPoint.sol'
-  ],
-  testFiles: [
-    'test/IndexedUniswapV2Oracle.spec.js',
-    'test/PriceLibrary.spec.js',
-    'test/ExampleMapIndex.spec.js'
   ]
 }
