@@ -7,8 +7,10 @@ import { PriceLibrary as Prices } from "./lib/PriceLibrary.sol";
 import "./lib/FixedPoint.sol";
 import { IndexedPriceMapLibrary as PriceMapLib } from "./lib/IndexedPriceMapLibrary.sol";
 
+/* Inheritance */
+import { IIndexedUniswapV2Oracle } from "./interfaces/IIndexedUniswapV2Oracle.sol";
 
-contract IndexedUniswapV2Oracle {
+contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
   using Prices for address;
   using Prices for Prices.PriceObservation;
   using Prices for Prices.TwoWayAveragePrice;
@@ -46,12 +48,12 @@ contract IndexedUniswapV2Oracle {
 
 /* ==========  Mutative Functions  ========== */
 
-  function updatePrice(address token) public returns (bool/* didUpdatePrice */) {
+  function updatePrice(address token) public override returns (bool/* didUpdatePrice */) {
     Prices.PriceObservation memory observation = _uniswapFactory.observeTwoWayPrice(token, _weth);
     return _tokenPriceMaps[token].writePriceObservation(observation);
   }
 
-  function updatePrices(address[] calldata tokens) external returns (bool[] memory pricesUpdated) {
+  function updatePrices(address[] calldata tokens) external override returns (bool[] memory pricesUpdated) {
     uint256 len = tokens.length;
     pricesUpdated = new bool[](len);
     for (uint256 i = 0; i < len; i++) {
@@ -61,13 +63,14 @@ contract IndexedUniswapV2Oracle {
 
 /* ==========  Meta Price Queries  ========== */
 
-  function hasPriceObservationInWindow(address token, uint256 priceKey) external view returns (bool) {
+  function hasPriceObservationInWindow(address token, uint256 priceKey) external view override returns (bool) {
     return _tokenPriceMaps[token].hasPriceInWindow(priceKey);
   }
 
   function getPriceObservationInWindow(address token, uint256 priceKey)
     external
     view
+    override
     returns (Prices.PriceObservation memory)
   {
     Prices.PriceObservation memory observation = _tokenPriceMaps[token].getPriceInWindow(priceKey);
@@ -80,12 +83,12 @@ contract IndexedUniswapV2Oracle {
 
 /* ==========  Price Update Queries  ========== */
 
-  function canUpdatePrice(address token) external view returns (bool/* canUpdatePrice */) {
+  function canUpdatePrice(address token) external view override returns (bool/* canUpdatePrice */) {
     if (!_uniswapFactory.pairInitialized(token, _weth)) return false;
     return _tokenPriceMaps[token].canUpdatePrice(uint32(now));
   }
 
-  function canUpdatePrices(address[] calldata tokens) external view returns (bool[] memory canUpdateArr) {
+  function canUpdatePrices(address[] calldata tokens) external view override returns (bool[] memory canUpdateArr) {
     uint256 len = tokens.length;
     canUpdateArr = new bool[](len);
     for (uint256 i = 0; i < len; i++) {
@@ -111,6 +114,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (Prices.TwoWayAveragePrice memory)
   {
@@ -131,6 +135,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (FixedPoint.uq112x112 memory priceAverage)
   {
@@ -151,6 +156,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (FixedPoint.uq112x112 memory priceAverage)
   {
@@ -174,6 +180,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (Prices.TwoWayAveragePrice[] memory prices)
   {
@@ -184,7 +191,7 @@ contract IndexedUniswapV2Oracle {
     }
   }
 
-    /**
+  /**
    * @dev Returns the UQ112x112 structs representing the average price of
    * each token in `tokens` in terms of weth.
    *
@@ -198,6 +205,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (FixedPoint.uq112x112[] memory averagePrices)
   {
@@ -222,6 +230,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (FixedPoint.uq112x112[] memory averagePrices)
   {
@@ -242,6 +251,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (uint144 /* averageValueInWETH */)
   {
@@ -257,6 +267,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (uint144 /* averageValueInToken */)
   {
@@ -274,6 +285,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (uint144[] memory averageValuesInWETH)
   {
@@ -312,6 +324,7 @@ contract IndexedUniswapV2Oracle {
   )
     external
     view
+    override
     validMinMax(minTimeElapsed, maxTimeElapsed)
     returns (uint144[] memory averageValuesInWETH)
   {
