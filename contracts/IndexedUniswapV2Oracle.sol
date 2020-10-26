@@ -24,7 +24,7 @@ contract IndexedUniswapV2Oracle {
 
 /* ==========  Storage  ========== */
 
-  // Price observations for tokens indexed by time period.
+  // Price observations for tokens indexed by hour.
   mapping(address => PriceMapLib.IndexedPriceMap) internal _tokenPriceMaps;
 
 /* ==========  Modifiers  ========== */
@@ -61,19 +61,19 @@ contract IndexedUniswapV2Oracle {
 
 /* ==========  Meta Price Queries  ========== */
 
-  function hasPriceObservationInWindow(address token, uint256 timestamp) external view returns (bool) {
-    return _tokenPriceMaps[token].hasPriceInWindow(timestamp);
+  function hasPriceObservationInWindow(address token, uint256 priceKey) external view returns (bool) {
+    return _tokenPriceMaps[token].hasPriceInWindow(priceKey);
   }
 
-  function getPriceObservationInWindow(address token, uint256 timestamp)
+  function getPriceObservationInWindow(address token, uint256 priceKey)
     external
     view
     returns (Prices.PriceObservation memory)
   {
-    Prices.PriceObservation memory observation = _tokenPriceMaps[token].getPriceInWindow(timestamp);
+    Prices.PriceObservation memory observation = _tokenPriceMaps[token].getPriceInWindow(priceKey);
     require(
       observation.timestamp != 0,
-      "IndexedUniswapV2Oracle::getPriceObservationInWindow: No price observed in window for provided timestamp."
+      "IndexedUniswapV2Oracle::getPriceObservationInWindow: No price observed in given hour."
     );
     return observation;
   }
@@ -156,7 +156,6 @@ contract IndexedUniswapV2Oracle {
   {
     return _getEthPrice(token, minTimeElapsed, maxTimeElapsed);
   }
-
 
 /* ==========  Price Queries: Multiple  ========== */
 
@@ -293,6 +292,18 @@ contract IndexedUniswapV2Oracle {
     }
   }
 
+  /**
+   * @dev Compute the average value of each amount of ether in `wethAmounts` in terms
+   * of the corresponding token in `tokens`.
+   *
+   * Computes the time-weighted average price of each token by getting the current price
+   * from Uniswap and searching for a historical price which is between `minTimeElapsed`
+   * and `maxTimeElapsed` seconds old.
+   *
+   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour. `minTimeElapsed` is only accurate to the nearest hour
+   * (rounded up) unless it is less than one hour.
+   */
   function computeAverageTokensForEth(
     address[] calldata tokens,
     uint256[] calldata wethAmounts,
