@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.6.0;
 
-/* ==========  Libraries  ========== */
+/* ==========  Internal Libraries  ========== */
 import { PriceLibrary as Prices } from "./PriceLibrary.sol";
 import "./KeyIndex.sol";
-import "@nomiclabs/buidler/console.sol";
 
 
 library IndexedPriceMapLibrary {

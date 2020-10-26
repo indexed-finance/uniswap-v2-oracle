@@ -2,13 +2,14 @@
 pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
-/* ==========  Libraries  ========== */
+/* ==========  Internal Libraries  ========== */
 import { PriceLibrary as Prices } from "./lib/PriceLibrary.sol";
 import "./lib/FixedPoint.sol";
 import { IndexedPriceMapLibrary as PriceMapLib } from "./lib/IndexedPriceMapLibrary.sol";
 
-/* Inheritance */
+/* ==========  Internal Inheritance  ========== */
 import { IIndexedUniswapV2Oracle } from "./interfaces/IIndexedUniswapV2Oracle.sol";
+
 
 contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
   using Prices for address;
