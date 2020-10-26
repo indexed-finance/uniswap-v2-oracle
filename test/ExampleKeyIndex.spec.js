@@ -2,12 +2,12 @@ const chai = require("chai");
 chai.use(require('chai-as-promised'))
 const { expect } = chai;
 
-describe("ExampleMapIndex", function() {
+describe("ExampleKeyIndex", function() {
   describe('getPreviousValue()', async () => {
     let example;
     beforeEach(async () => {
-      const ExampleMapIndex = await ethers.getContractFactory("ExampleMapIndex");
-      example = await ExampleMapIndex.deploy();
+      const ExampleKeyIndex = await ethers.getContractFactory("ExampleKeyIndex");
+      example = await ExampleKeyIndex.deploy();
     });
 
     it('Reverts when 0 is the starting key', async () => {
@@ -68,8 +68,8 @@ describe("ExampleMapIndex", function() {
     let example;
 
     beforeEach(async () => {
-      const ExampleMapIndex = await ethers.getContractFactory("ExampleMapIndex");
-      example = await ExampleMapIndex.deploy();
+      const ExampleKeyIndex = await ethers.getContractFactory("ExampleKeyIndex");
+      example = await ExampleKeyIndex.deploy();
     });
 
     it('Finds next value in filled indices', async () => {
