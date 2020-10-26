@@ -70,18 +70,6 @@ library Bits {
     }
   }
 
-  // function nextLowestBitSetExclusive(uint256 self, uint256 bit)
-  //   internal
-  //   pure
-  //   returns (bool haveValueBefore, uint256 previousBit)
-  // {
-  //   uint256 val = self << (256 - bit);
-  //   if (val == 0) {
-  //     return (false, 0);
-  //   }
-  //   return (true, (highestBitSet(val) - (256 - bit)));
-  // }
-
   function nextLowestBitSet(uint256 self, uint256 bit)
     internal
     pure
