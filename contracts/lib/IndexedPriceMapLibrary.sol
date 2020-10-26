@@ -82,6 +82,11 @@ library IndexedPriceMapLibrary {
     return false;
   }
 
+  /**
+   * @dev Checks if a price can be updated. Prices can be updated if there is no price
+   * observation for the current hour and at least 30 minutes have passed since the
+   * observation in the previous hour (if there is one).
+   */
   function canUpdatePrice(
     IndexedPriceMap storage indexedPriceMap,
     uint32 newTimestamp
@@ -96,16 +101,16 @@ library IndexedPriceMapLibrary {
 
   function hasPriceInWindow(
     IndexedPriceMap storage indexedPriceMap,
-    uint256 timestamp
+    uint256 priceKey
   ) internal view returns (bool) {
-    return indexedPriceMap.keyIndex.hasKey(toPriceKey(timestamp));
+    return indexedPriceMap.keyIndex.hasKey(priceKey);
   }
 
   function getPriceInWindow(
     IndexedPriceMap storage indexedPriceMap,
-    uint256 timestamp
+    uint256 priceKey
   ) internal view returns (Prices.PriceObservation memory) {
-    return indexedPriceMap.priceMap[toPriceKey(timestamp)];
+    return indexedPriceMap.priceMap[priceKey];
   }
 
   /**
@@ -156,7 +161,6 @@ library IndexedPriceMapLibrary {
     }
 
     uint256 beginSearchTime = timestamp - minTimeElapsed;
-    /* uint256 */
     priceKey = toPriceKey(beginSearchTime);
     uint256 maxDistance = toPriceKey(maxTimeElapsed);
     return indexedPriceMap.keyIndex.findLastSetKey(priceKey, maxDistance);
