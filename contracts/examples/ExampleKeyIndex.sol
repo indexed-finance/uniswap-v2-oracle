@@ -44,6 +44,47 @@ contract ExampleKeyIndex {
     return (false, 0);
   }
 
+  function getValuesInRange(uint256 fromKey, uint256 toKey)
+    external view returns (uint256[] memory values)
+  {
+    require(toKey > fromKey, "ExampleKeyIndex::getValuesInRange: Invalid Range");
+    bytes memory bitPositions = _keyIndex.getEncodedSetKeysInRange(fromKey, toKey);
+    // Divide by 2 because length is in bytes and relative indices are stored as uint16
+    uint256 len = bitPositions.length / 2;
+    values = new uint256[](len);
+    uint256 ptr;
+    assembly { ptr := add(bitPositions, 32) }
+    for (uint256 i = 0; i < len; i++) {
+      uint256 relativeIndex;
+      assembly {
+        relativeIndex := shr(0xf0, mload(ptr))
+        ptr := add(ptr, 2)
+      }
+      uint256 key = fromKey + relativeIndex;
+      values[i] = _valueMap[key];
+    }
+  }
+
+  function getSetKeysInRange(uint256 fromKey, uint256 toKey)
+    external view returns (uint256[] memory setKeys)
+  {
+    require(toKey > fromKey, "ExampleKeyIndex::getSetKeysInRange: Invalid Range");
+    // Divide by 2 because length is in bytes and relative indices are stored as uint16
+    bytes memory bitPositions = _keyIndex.getEncodedSetKeysInRange(fromKey, toKey);
+    uint256 len = bitPositions.length / 2;
+    setKeys = new uint256[](len);
+    uint256 ptr;
+    assembly { ptr := add(bitPositions, 32) }
+    for (uint256 i = 0; i < len; i++) {
+      uint256 relativeIndex;
+      assembly {
+        relativeIndex := shr(0xf0, mload(ptr))
+        ptr := add(ptr, 2)
+      }
+      setKeys[i] = fromKey + relativeIndex;
+    }
+  }
+
   function hasKey(uint256 key)
     external
     view
