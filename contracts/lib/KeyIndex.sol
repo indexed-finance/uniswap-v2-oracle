@@ -24,6 +24,7 @@ import "./Bits.sol";
  */
 library KeyIndex {
   using Bits for uint256;
+  using Bits for bytes;
 
 /* ========= Utility Functions ========= */
 
@@ -73,6 +74,9 @@ library KeyIndex {
 
 /* ========= View Functions ========= */
 
+  /**
+   * @dev Returns a boolean indicating whether a value is stored for `mapKey` in the map index.
+   */
   function hasKey(
     mapping(uint256 => uint256) storage keyIndex,
     uint256 mapKey
@@ -81,6 +85,42 @@ library KeyIndex {
     uint256 localIndex = keyIndex[indexKey];
     if (localIndex == 0) return false;
     return localIndex.bitSet(indexPosition);
+  }
+
+  /**
+   * @dev Returns a packed uint16 array with the offsets of all set keys
+   * between `mapKeyFrom` and `mapKeyTo`. Offsets are relative to `mapKeyFrom`
+   */
+  function getEncodedSetKeysInRange(
+    mapping(uint256 => uint256) storage keyIndex,
+    uint256 mapKeyFrom,
+    uint256 mapKeyTo
+  ) internal view returns (bytes memory bitPositions) {
+    uint256 rangeSize = mapKeyTo - mapKeyFrom;
+    (uint256 indexKeyStart, uint256 indexPositionStart) = indexKeyAndPosition(mapKeyFrom);
+    (uint256 indexKeyEnd, uint256 indexPositionEnd) = indexKeyAndPosition(mapKeyTo);
+    // Expand memory too accomodate the maximum number of bits that could be found
+    // Length is 2*range because values are stored as uint16s
+    // 30 is added because 32 bytes are stored at a time and this would go past rangeSize*2
+    // if most bits are set
+    bitPositions = new bytes((2 * rangeSize) + 30);
+    // Set the length to 0, as it is used by the `writeSetBits` fn
+    assembly { mstore(bitPositions, 0) }
+    uint256 indexKey = indexKeyStart;
+    // Clear the bits before `indexPositionStart` so they are not included in the search result
+    uint256 localIndex = keyIndex[indexKey].clearBitsBefore(indexPositionStart);
+    uint16 offset = 0;
+    // Check each index until the last one is reached
+    while (indexKey < indexKeyEnd) {
+      // Relative index is set by adding provided `offset` to the bit index
+      bitPositions.writeSetBits(localIndex, offset);
+      indexKey += 1;
+      localIndex = keyIndex[indexKey];
+      offset += 256;
+    }
+    // Clear the bits after `indexPositionEnd` before searching for set bits
+    localIndex = localIndex.clearBitsAfter(indexPositionEnd);
+    bitPositions.writeSetBits(localIndex, offset);
   }
 
   /**
