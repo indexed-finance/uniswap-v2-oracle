@@ -5,11 +5,23 @@ const Logger = require('./lib/logger');
 const Deployer = require('./lib/deployer');
 const { toBN, toHex, oneToken } = require('./lib/bn');
 
-// usePlugin("@nomiclabs/buidler-waffle");
+require('dotenv').config();
+
+const { InfuraProvider } = require('@ethersproject/providers');
+const { fromPrivateKey } = require('ethereumjs-wallet');
+const { randomBytes } = require('crypto');
+
 usePlugin("buidler-ethers-v5");
 usePlugin("buidler-deploy");
-// usePlugin("@nomiclabs/buidler-web3");
 usePlugin("solidity-coverage");
+usePlugin("@nomiclabs/buidler-etherscan");
+
+const keys = {
+  rinkeby: fromPrivateKey(
+    process.env.RINKEBY_PVT_KEY
+      ? Buffer.from(process.env.RINKEBY_PVT_KEY.slice(2), 'hex')
+      : randomBytes(32)).getPrivateKeyString()
+};
 
 internalTask('deploy-test-token-and-market', 'Deploy a test token and Uniswap market pair for it and WETH')
   .setAction(async ({ logger, name, symbol }) => {
@@ -174,9 +186,6 @@ internalTask('update-prices', 'Update the prices for a list of tokens')
     priceTable.push(['HourlyTWAP', receiptHourly.cumulativeGasUsed.toString()]);
     priceTable.push(['WeeklyTWAP', receiptWeekly.cumulativeGasUsed.toString()]);
     priceTable.push(['Indexed', receiptIndexed.cumulativeGasUsed.toString()]);
-    
-    // console.log(priceTable.toString());
-
   });
 
 internalTask('getTimestamp', () => {
@@ -191,6 +200,10 @@ internalTask('increaseTime', 'Increases the node timestamp')
   });
 
 module.exports = {
+  etherscan: {
+    // url: "https://api.etherscan.io/api",
+    apiKey: process.env.ETHERSCAN_API_KEY,
+  },
   external: {
     artifacts: [
       "node_modules/@uniswap/v2-core/build",
@@ -208,6 +221,11 @@ module.exports = {
     },
   },
   networks: {
+    rinkeby: {
+      url: new InfuraProvider("rinkeby", process.env.INFURA_PROJECT_ID).connection.url,
+      accounts: [keys.rinkeby],
+      chainId: 4
+    },
     coverage: {
       url: url.format({
         protocol: "http:",
