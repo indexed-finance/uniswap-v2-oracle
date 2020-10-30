@@ -2,7 +2,7 @@
 pragma solidity ^0.6.0;
 
 /* ==========  Internal Interfaces  ========== */
-import "../interfaces/IUniswapV2Pair.sol";
+import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 
 /* ==========  Internal Libraries  ========== */
 import "./FixedPoint.sol";
