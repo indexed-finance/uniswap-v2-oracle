@@ -27,16 +27,31 @@ library IndexedPriceMapLibrary {
 
 /* ========= Utility Functions ========= */
 
+  /**
+   * @dev Returns the price key for `timestamp`, which is the hour index.
+   */
   function toPriceKey(uint256 timestamp) internal pure returns (uint256/* priceKey */) {
     return timestamp / OBSERVATION_PERIOD;
   }
 
+  /**
+   * @dev Returns the number of seconds that have passed since the beginning of the hour.
+   */
   function timeElapsedSinceWindowStart(uint256 timestamp) internal pure returns (uint256/* timeElapsed */) {
     return timestamp % OBSERVATION_PERIOD;
   }
 
 /* ========= Mutative Functions ========= */
 
+  /**
+   * @dev Writes `observation` to storage if the price can be updated. If it is
+   * updated, also marks the price key for the observation as having a value in
+   * the key index.
+   *
+   * Note: The price can be updated if there is none recorded for the current
+   * hour 30 minutes have passed since the last price update.
+   * Returns a boolean indicating whether the price was updated.
+   */
   function writePriceObservation(
     IndexedPriceMap storage indexedPriceMap,
     Prices.PriceObservation memory observation
@@ -98,6 +113,9 @@ library IndexedPriceMapLibrary {
 
 /* =========  Price View Functions  ========= */
 
+  /**
+   * @dev Checks the key index to see if a price is recorded for `priceKey`
+   */
   function hasPriceInWindow(
     IndexedPriceMap storage indexedPriceMap,
     uint256 priceKey
@@ -105,11 +123,43 @@ library IndexedPriceMapLibrary {
     return indexedPriceMap.keyIndex.hasKey(priceKey);
   }
 
+  /**
+   * @dev Returns the price observation for `priceKey`
+   */
   function getPriceInWindow(
     IndexedPriceMap storage indexedPriceMap,
     uint256 priceKey
   ) internal view returns (Prices.PriceObservation memory) {
     return indexedPriceMap.priceMap[priceKey];
+  }
+
+  function getPriceObservationsInRange(
+    IndexedPriceMap storage indexedPriceMap,
+    uint256 timeFrom,
+    uint256 timeTo
+  )
+    internal
+    view
+    returns (Prices.PriceObservation[] memory prices)
+  {
+    uint256 priceKeyFrom = toPriceKey(timeFrom);
+    uint256 priceKeyTo = toPriceKey(timeTo);
+    require(priceKeyTo > priceKeyFrom, "IndexedPriceMapLibrary::getPriceObservationsInRange: Invalid time range");
+    bytes memory bitPositions = indexedPriceMap.keyIndex.getEncodedSetKeysInRange(priceKeyFrom, priceKeyTo);
+    // Divide by 2 because length is in bytes and relative indices are stored as uint16
+    uint256 len = bitPositions.length / 2;
+    prices = new Prices.PriceObservation[](len);
+    uint256 ptr;
+    assembly { ptr := add(bitPositions, 32) }
+    for (uint256 i = 0; i < len; i++) {
+      uint256 relativeIndex;
+      assembly {
+        relativeIndex := shr(0xf0, mload(ptr))
+        ptr := add(ptr, 2)
+      }
+      uint256 key = priceKeyFrom + relativeIndex;
+      prices[i] = indexedPriceMap.priceMap[key];
+    }
   }
 
   /**
