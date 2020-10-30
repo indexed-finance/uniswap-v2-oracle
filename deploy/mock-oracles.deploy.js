@@ -36,5 +36,5 @@ module.exports = async (bre) => {
   });
 };
 
-module.exports.tags = ['Mocks', 'Oracles'];
+module.exports.tags = ['MockOracles', 'Mocks'];
 module.exports.dependencies = ['Uniswap']
