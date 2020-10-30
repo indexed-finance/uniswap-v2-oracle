@@ -210,6 +210,11 @@ module.exports = {
         hostname: "localhost",
       }),
     },
+    deployments: {
+      rinkeby: [
+        "node_modules/@indexed-finance/uniswap-deployments/rinkeby"
+      ]
+    }
   },
   solc: {
     version: "0.6.8",
