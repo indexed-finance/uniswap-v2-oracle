@@ -5,7 +5,6 @@ pragma solidity ^0.6.0;
 import "../interfaces/IUniswapV2Pair.sol";
 
 /* ==========  Internal Libraries  ========== */
-import "./UniswapV2Library.sol";
 import "./FixedPoint.sol";
 
 
