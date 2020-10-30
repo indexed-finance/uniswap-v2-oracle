@@ -4,6 +4,14 @@
 [![Coverage Status](https://coveralls.io/repos/github/indexed-finance/uniswap-v2-oracle/badge.svg?branch=master)](https://coveralls.io/github/indexed-finance/uniswap-v2-oracle?branch=master)
 [![npm version](https://badge.fury.io/js/%40indexed-finance%2Funiswap-v2-oracle.svg)](https://badge.fury.io/js/%40indexed-finance%2Funiswap-v2-oracle)
 
-While this contract was developed for use in the Indexed protocol, the name comes from the fact that it indexes keys to track timestamps that the oracle has observed prices for.
+### [Documentation (incomplete)](https://docs.indexed.finance/indexed-finance-docs/smart-contracts/indexeduniswapv2oracle)
 
-## TODO - README
+## Tests
+
+**Run all tests**
+
+`npx buidler test`
+
+**Run test coverage**
+
+`npm run coverage`
