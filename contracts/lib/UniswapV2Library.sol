@@ -1,13 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.6.0;
 
-/* ==========  Internal Interfaces  ========== */
-import "../interfaces/IUniswapV2Pair.sol";
-
-/* ==========  External Libraries  ========== */
-import "@openzeppelin/contracts/math/SafeMath.sol";
-
-
 /************************************************************************************************
 Originally from https://github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/libraries/UniswapV2Library.sol
 
@@ -19,8 +12,6 @@ Subject to the GPL-3.0 license
 
 
 library UniswapV2Library {
-  using SafeMath for uint256;
-
   // returns sorted token addresses, used to handle return values from pairs sorted in this order
   function sortTokens(address tokenA, address tokenB)
     internal
