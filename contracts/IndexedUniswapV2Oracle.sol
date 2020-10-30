@@ -49,12 +49,30 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
 
 /* ==========  Mutative Functions  ========== */
 
+  /**
+   * @dev Attempts to update the price of `token` and returns a boolean
+   * indicating whether it was updated.
+   *
+   * Note: The price can be updated if there is no observation for the current hour
+   * and at least 30 minutes have passed since the last observation.
+   */
   function updatePrice(address token) public override returns (bool/* didUpdatePrice */) {
     Prices.PriceObservation memory observation = _uniswapFactory.observeTwoWayPrice(token, _weth);
     return _tokenPriceMaps[token].writePriceObservation(observation);
   }
 
-  function updatePrices(address[] calldata tokens) external override returns (bool[] memory pricesUpdated) {
+  /**
+   * @dev Attempts to update the price of each token in `tokens` and returns a boolean
+   * array indicating which tokens had their prices updated.
+   *
+   * Note: The price can be updated if there is no observation for the current hour
+   * and at least 30 minutes have passed since the last observation.
+   */
+  function updatePrices(address[] calldata tokens)
+    external
+    override
+    returns (bool[] memory pricesUpdated)
+  {
     uint256 len = tokens.length;
     pricesUpdated = new bool[](len);
     for (uint256 i = 0; i < len; i++) {
@@ -64,31 +82,71 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
 
 /* ==========  Meta Price Queries  ========== */
 
-  function hasPriceObservationInWindow(address token, uint256 priceKey) external view override returns (bool) {
+  /**
+   * @dev Returns a boolean indicating whether a price was recorded for `token` at `priceKey`.
+   *
+   * @param token Token to check if the oracle has a price for
+   * @param priceKey Index of the hour to check
+   */
+  function hasPriceObservationInWindow(address token, uint256 priceKey)
+    external view override returns (bool)
+  {
     return _tokenPriceMaps[token].hasPriceInWindow(priceKey);
   }
 
+
+  /**
+   * @dev Returns the price observation for `token` recorded in `priceKey`.
+   * Reverts if no prices have been recorded for that key.
+   *
+   * @param token Token to retrieve a price for
+   * @param priceKey Index of the hour to query
+   */
   function getPriceObservationInWindow(address token, uint256 priceKey)
     external
     view
     override
-    returns (Prices.PriceObservation memory)
+    returns (Prices.PriceObservation memory observation)
   {
-    Prices.PriceObservation memory observation = _tokenPriceMaps[token].getPriceInWindow(priceKey);
+    observation = _tokenPriceMaps[token].getPriceInWindow(priceKey);
     require(
       observation.timestamp != 0,
       "IndexedUniswapV2Oracle::getPriceObservationInWindow: No price observed in given hour."
     );
-    return observation;
+  }
+
+  /**
+   * @dev Returns all price observations for `token` recorded between `timeFrom` and `timeTo`.
+   */
+  function getPriceObservationsInRange(address token, uint256 timeFrom, uint256 timeTo)
+    external
+    view
+    override
+    returns (Prices.PriceObservation[] memory prices)
+  {
+    prices = _tokenPriceMaps[token].getPriceObservationsInRange(timeFrom, timeTo);
   }
 
 /* ==========  Price Update Queries  ========== */
 
+  /**
+   * @dev Returns a boolean indicating whether the price of `token` can be updated.
+   *
+   * Note: The price can be updated if there is no observation for the current hour
+   * and at least 30 minutes have passed since the last observation.
+   */
   function canUpdatePrice(address token) external view override returns (bool/* canUpdatePrice */) {
     if (!_uniswapFactory.pairInitialized(token, _weth)) return false;
     return _tokenPriceMaps[token].canUpdatePrice(uint32(now));
   }
 
+  /**
+   * @dev Returns a boolean array indicating whether the price of each token in
+   * `tokens` can be updated.
+   *
+   * Note: The price can be updated if there is no observation for the current hour
+   * and at least 30 minutes have passed since the last observation.
+   */
   function canUpdatePrices(address[] calldata tokens) external view override returns (bool[] memory canUpdateArr) {
     uint256 len = tokens.length;
     canUpdateArr = new bool[](len);
@@ -105,7 +163,13 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * @dev Returns the TwoWayAveragePrice struct representing the average price of
    * weth in terms of `token` and the average price of `token` in terms of weth.
    *
+   * Computes the time-weighted average price of weth in terms of `token` and the price
+   * of `token` in terms of weth by getting the current prices from Uniswap and searching
+   * for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.
+   *
    * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
    * it is less than one hour.
    */
   function computeTwoWayAveragePrice(
@@ -126,7 +190,13 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * @dev Returns the UQ112x112 struct representing the average price of
    * `token` in terms of weth.
    *
+   * Computes the time-weighted average price of `token` in terms of weth by getting the
+   * current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old.
+   *
    * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
    * it is less than one hour.
    */
   function computeAverageTokenPrice(
@@ -147,7 +217,13 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * @dev Returns the UQ112x112 struct representing the average price of
    * weth in terms of `token`.
    *
+   * Computes the time-weighted average price of weth in terms of `token` by getting the
+   * current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old.
+   *
    * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
    * it is less than one hour.
    */
   function computeAverageEthPrice(
@@ -171,7 +247,13 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * weth in terms of each token in `tokens` and the average price of each token
    * in terms of weth.
    *
+   * Computes the time-weighted average price of weth in terms of each token and the price
+   * of each token in terms of weth by getting the current prices from Uniswap and searching
+   * for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.
+   *
    * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
    * it is less than one hour.
    */
   function computeTwoWayAveragePrices(
@@ -196,7 +278,13 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * @dev Returns the UQ112x112 structs representing the average price of
    * each token in `tokens` in terms of weth.
    *
+   * Computes the time-weighted average price of each token in terms of weth by getting
+   * the current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old.
+   *
    * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
    * it is less than one hour.
    */
   function computeAverageTokenPrices(
@@ -221,7 +309,13 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * @dev Returns the UQ112x112 structs representing the average price of
    * weth in terms of each token in `tokens`.
    *
+   * Computes the time-weighted average price of weth in terms of each token by getting
+   * the current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old.
+   *
    * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
    * it is less than one hour.
    */
   function computeAverageEthPrices(
@@ -244,6 +338,18 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
 
 /* ==========  Value Queries: Singular  ========== */
 
+  /**
+   * @dev Compute the average value of `tokenAmount` ether in terms of weth.
+   *
+   * Computes the time-weighted average price of `token` in terms of weth by getting
+   * the current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by `wethAmount`.
+   *
+   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
+   * it is less than one hour.
+   */
   function computeAverageEthForTokens(
     address token,
     uint256 tokenAmount,
@@ -260,6 +366,18 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
     return tokenPrice.mul(tokenAmount).decode144();
   }
 
+  /**
+   * @dev Compute the average value of `wethAmount` ether in terms of `token`.
+   *
+   * Computes the time-weighted average price of weth in terms of the token by getting
+   * the current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by `wethAmount`.
+   *
+   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
+   * it is less than one hour.
+   */
   function computeAverageTokensForEth(
     address token,
     uint256 wethAmount,
@@ -276,8 +394,22 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
     return ethPrice.mul(wethAmount).decode144();
   }
 
-/* ==========  Value Queries: Singular  ========== */
+/* ==========  Value Queries: Multiple  ========== */
 
+  /**
+   * @dev Compute the average value of each amount of tokens in `tokenAmounts` in terms
+   * of the corresponding token in `tokens`.
+   *
+   * Computes the time-weighted average price of each token in terms of weth by getting
+   * the current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by the corresponding
+   * amount in `tokenAmounts`.
+   *
+   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
+   * it is less than one hour.
+   */
   function computeAverageEthForTokens(
     address[] calldata tokens,
     uint256[] calldata tokenAmounts,
@@ -309,13 +441,15 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * @dev Compute the average value of each amount of ether in `wethAmounts` in terms
    * of the corresponding token in `tokens`.
    *
-   * Computes the time-weighted average price of each token by getting the current price
-   * from Uniswap and searching for a historical price which is between `minTimeElapsed`
-   * and `maxTimeElapsed` seconds old.
+   * Computes the time-weighted average price of weth in terms of each token by getting
+   * the current price from Uniswap and searching for a historical price which is between
+   * `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by the corresponding
+   * amount in `wethAmounts`.
    *
    * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless
-   * it is less than one hour. `minTimeElapsed` is only accurate to the nearest hour
-   * (rounded up) unless it is less than one hour.
+   * it is less than one hour.
+   * Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless
+   * it is less than one hour.
    */
   function computeAverageTokensForEth(
     address[] calldata tokens,
