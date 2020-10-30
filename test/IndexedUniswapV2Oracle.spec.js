@@ -20,7 +20,7 @@ describe('IndexedUniswapV2Oracle', async () => {
 
   before(async () => {
     ({deployer} = await getNamedAccounts());
-    await deployments.fixture('MockOracles');
+    await deployments.fixture('Oracle');
     const [signer] = await ethers.getSigners();
     oracle = await ethers.getContract('IndexedUniswapV2Oracle', signer);
     weth = await ethers.getContract('weth', signer);

@@ -16,19 +16,6 @@ module.exports = async (bre) => {
   const uniswapFactory = (await deployments.get('uniswapFactory')).address;
   const weth = (await deployments.get('weth')).address;
 
-  // Deploy UniSwap oracles
-  await deploy("UniswapV2PriceOracle", 'WeeklyTWAPUniswapV2Oracle', {
-    from: deployer,
-    gas: 4000000,
-    args: [uniswapFactory, weth, 7*24*60*60]
-  });
-
-  await deploy("UniswapV2PriceOracle", 'HourlyTWAPUniswapV2Oracle', {
-    from: deployer,
-    gas: 4000000,
-    args: [uniswapFactory, weth, 60*60]
-  });
-
   await deploy("IndexedUniswapV2Oracle", 'IndexedOracle', {
     from: deployer,
     gas: 4000000,
@@ -36,5 +23,5 @@ module.exports = async (bre) => {
   });
 };
 
-module.exports.tags = ['MockOracles', 'Mocks'];
+module.exports.tags = ['Oracle'];
 module.exports.dependencies = ['Uniswap']

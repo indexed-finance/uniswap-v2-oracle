@@ -23,7 +23,7 @@ describe('PriceLibrary', async () => {
 
   before(async () => {
     ({deployer} = await getNamedAccounts());
-    await deployments.fixture('MockOracles');
+    await deployments.fixture('Oracle');
     const [signer] = await ethers.getSigners();
     const TestPriceLibrary = await ethers.getContractFactory('TestPriceLibrary', signer);
     weth = await ethers.getContract('weth', signer);
