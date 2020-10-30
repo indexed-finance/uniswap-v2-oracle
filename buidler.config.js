@@ -196,6 +196,11 @@ module.exports = {
       "node_modules/@uniswap/v2-core/build",
       "node_modules/@uniswap/v2-periphery/build"
     ],
+    deployments: {
+      rinkeby: [
+        "node_modules/@indexed-finance/uniswap-deployments/rinkeby"
+      ]
+    }
   },
   namedAccounts: {
     deployer: {
@@ -209,11 +214,6 @@ module.exports = {
         port: 8555,
         hostname: "localhost",
       }),
-    },
-    deployments: {
-      rinkeby: [
-        "node_modules/@indexed-finance/uniswap-deployments/rinkeby"
-      ]
     }
   },
   solc: {
