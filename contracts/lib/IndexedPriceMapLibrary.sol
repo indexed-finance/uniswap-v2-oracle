@@ -2,12 +2,12 @@
 pragma solidity ^0.6.0;
 
 /* ==========  Internal Libraries  ========== */
-import { PriceLibrary as Prices } from "./PriceLibrary.sol";
+import "./PriceLibrary.sol";
 import "./KeyIndex.sol";
 
 
 library IndexedPriceMapLibrary {
-  using Prices for address;
+  using PriceLibrary for address;
   using KeyIndex for mapping(uint256 => uint256);
 
 /* ==========  Constants  ========== */
@@ -22,24 +22,39 @@ library IndexedPriceMapLibrary {
 
   struct IndexedPriceMap {
     mapping(uint256 => uint256) keyIndex;
-    mapping(uint256 => Prices.PriceObservation) priceMap;
+    mapping(uint256 => PriceLibrary.PriceObservation) priceMap;
   }
 
 /* ========= Utility Functions ========= */
 
+  /**
+   * @dev Returns the price key for `timestamp`, which is the hour index.
+   */
   function toPriceKey(uint256 timestamp) internal pure returns (uint256/* priceKey */) {
     return timestamp / OBSERVATION_PERIOD;
   }
 
+  /**
+   * @dev Returns the number of seconds that have passed since the beginning of the hour.
+   */
   function timeElapsedSinceWindowStart(uint256 timestamp) internal pure returns (uint256/* timeElapsed */) {
     return timestamp % OBSERVATION_PERIOD;
   }
 
 /* ========= Mutative Functions ========= */
 
+  /**
+   * @dev Writes `observation` to storage if the price can be updated. If it is
+   * updated, also marks the price key for the observation as having a value in
+   * the key index.
+   *
+   * Note: The price can be updated if there is none recorded for the current
+   * hour 30 minutes have passed since the last price update.
+   * Returns a boolean indicating whether the price was updated.
+   */
   function writePriceObservation(
     IndexedPriceMap storage indexedPriceMap,
-    Prices.PriceObservation memory observation
+    PriceLibrary.PriceObservation memory observation
   ) internal returns (bool/* didUpdatePrice */) {
     bool canUpdate = sufficientDelaySinceLastPrice(indexedPriceMap, observation.timestamp);
     if (canUpdate) {
@@ -70,7 +85,7 @@ library IndexedPriceMapLibrary {
       return true;
     } else {
       // Verify that at least half the observation period has passed since the last price observation.
-      Prices.PriceObservation storage lastObservation = indexedPriceMap.priceMap[priceKey - 1];
+      PriceLibrary.PriceObservation storage lastObservation = indexedPriceMap.priceMap[priceKey - 1];
       if (
         lastObservation.timestamp == 0 ||
         newTimestamp - lastObservation.timestamp >= MINIMUM_OBSERVATION_DELAY
@@ -82,7 +97,7 @@ library IndexedPriceMapLibrary {
   }
 
   /**
-   * @dev Checks if a price can be updated. Prices can be updated if there is no price
+   * @dev Checks if a price can be updated. PriceLibrary can be updated if there is no price
    * observation for the current hour and at least 30 minutes have passed since the
    * observation in the previous hour (if there is one).
    */
@@ -98,6 +113,9 @@ library IndexedPriceMapLibrary {
 
 /* =========  Price View Functions  ========= */
 
+  /**
+   * @dev Checks the key index to see if a price is recorded for `priceKey`
+   */
   function hasPriceInWindow(
     IndexedPriceMap storage indexedPriceMap,
     uint256 priceKey
@@ -105,11 +123,43 @@ library IndexedPriceMapLibrary {
     return indexedPriceMap.keyIndex.hasKey(priceKey);
   }
 
+  /**
+   * @dev Returns the price observation for `priceKey`
+   */
   function getPriceInWindow(
     IndexedPriceMap storage indexedPriceMap,
     uint256 priceKey
-  ) internal view returns (Prices.PriceObservation memory) {
+  ) internal view returns (PriceLibrary.PriceObservation memory) {
     return indexedPriceMap.priceMap[priceKey];
+  }
+
+  function getPriceObservationsInRange(
+    IndexedPriceMap storage indexedPriceMap,
+    uint256 timeFrom,
+    uint256 timeTo
+  )
+    internal
+    view
+    returns (PriceLibrary.PriceObservation[] memory prices)
+  {
+    uint256 priceKeyFrom = toPriceKey(timeFrom);
+    uint256 priceKeyTo = toPriceKey(timeTo);
+    require(priceKeyTo > priceKeyFrom, "IndexedPriceMapLibrary::getPriceObservationsInRange: Invalid time range");
+    bytes memory bitPositions = indexedPriceMap.keyIndex.getEncodedSetKeysInRange(priceKeyFrom, priceKeyTo);
+    // Divide by 2 because length is in bytes and relative indices are stored as uint16
+    uint256 len = bitPositions.length / 2;
+    prices = new PriceLibrary.PriceObservation[](len);
+    uint256 ptr;
+    assembly { ptr := add(bitPositions, 32) }
+    for (uint256 i = 0; i < len; i++) {
+      uint256 relativeIndex;
+      assembly {
+        relativeIndex := shr(0xf0, mload(ptr))
+        ptr := add(ptr, 2)
+      }
+      uint256 key = priceKeyFrom + relativeIndex;
+      prices[i] = indexedPriceMap.priceMap[key];
+    }
   }
 
   /**
@@ -144,7 +194,7 @@ library IndexedPriceMapLibrary {
     // older than `timestamp` and the time elapsed since the beginning of the hour for `timestamp` is not higher
     // than `maxTimeElapsed`,  any allowed price must exist in the observation window for `timestamp`.
     if (canBeThisWindow || mustBeThisWindow) {
-      Prices.PriceObservation storage observation = indexedPriceMap.priceMap[priceKey];
+      PriceLibrary.PriceObservation storage observation = indexedPriceMap.priceMap[priceKey];
       uint32 obsTimestamp = observation.timestamp;
       if (
         obsTimestamp != 0 &&

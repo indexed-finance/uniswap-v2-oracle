@@ -2,7 +2,7 @@ const chai = require("chai");
 chai.use(require('chai-as-promised'))
 const { expect } = chai;
 const bre = require('@nomiclabs/buidler');
-const { expandTo18Decimals, fastForwardToNextHour, encodePrice, getTransactionTimestamp, fastForward, HOUR } = require('./utils');
+const { expandTo18Decimals, fastForwardToNextHour, encodePrice, getTransactionTimestamp, fastForward, HOUR, fastForwardToPeriodStart } = require('./utils');
 const { testTokensFixture } = require("./tokens-fixture");
 const { BigNumber } = require("ethers");
 
@@ -20,7 +20,7 @@ describe('IndexedUniswapV2Oracle', async () => {
 
   before(async () => {
     ({deployer} = await getNamedAccounts());
-    await deployments.fixture('Oracles');
+    await deployments.fixture('Oracle');
     const [signer] = await ethers.getSigners();
     oracle = await ethers.getContract('IndexedUniswapV2Oracle', signer);
     weth = await ethers.getContract('weth', signer);
@@ -84,6 +84,12 @@ describe('IndexedUniswapV2Oracle', async () => {
       await addLiquidity1();
       await getTransactionTimestamp(oracle.updatePrices([token0.address, token1.address]));
     });
+
+    it('getPriceObservationsInRange() reverts if timeFrom >= timeTo', async () => {
+      await expect(
+        oracle.getPriceObservationsInRange(token0.address, 1, 0)
+      ).to.be.rejectedWith(/IndexedPriceMapLibrary::getPriceObservationsInRange: Invalid time range/g);
+    })
 
     it('computeAverageEthForTokens() reverts if array lengths do not match', async () => {
       await expect(
@@ -436,6 +442,24 @@ describe('IndexedUniswapV2Oracle', async () => {
       await oracle['computeAverageTokensForEth(address,uint256,uint256,uint256)'](token0.address, 0, 2*HOUR, 10 * HOUR);
       await oracle['computeAverageEthForTokens(address[],uint256[],uint256,uint256)']([token0.address], [0], 2*HOUR, 10 * HOUR);
       await oracle['computeAverageTokensForEth(address[],uint256[],uint256,uint256)']([token0.address], [0], 2*HOUR, 10 * HOUR);
+    });
+
+    it('getPriceObservationsInRange()', async () => {
+      await fastForwardToPeriodStart(HOUR * 256);
+      const {timestamp} = await ethers.provider.getBlock('latest');
+      const timestamps = [];
+      for (let i = 0; i < 10; i++) {
+        await fastForwardToNextHour();
+        await addLiquidity0();
+        await addLiquidity1();
+        const txTimestamp = await getTransactionTimestamp(
+          oracle.updatePrices([token0.address, token1.address])
+        );
+        timestamps.push(+txTimestamp);
+      }
+      const observations = await oracle.getPriceObservationsInRange(token0.address, +timestamp, (+timestamp) + HOUR * 10);
+      const actualTimestamps = observations.map(obs => +obs.timestamp);
+      expect(actualTimestamps).to.deep.eq(timestamps);
     });
   });
 });
