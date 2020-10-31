@@ -1,0 +1,800 @@
+{
+  "address": "0x235F273f05Bb2129aD32377AA3E8257a55B1A3b9",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "uniswapFactory",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "weth",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "canUpdatePrice",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        }
+      ],
+      "name": "canUpdatePrices",
+      "outputs": [
+        {
+          "internalType": "bool[]",
+          "name": "canUpdateArr",
+          "type": "bool[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "tokenAmounts",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageEthForTokens",
+      "outputs": [
+        {
+          "internalType": "uint144[]",
+          "name": "averageValuesInWETH",
+          "type": "uint144[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageEthForTokens",
+      "outputs": [
+        {
+          "internalType": "uint144",
+          "name": "",
+          "type": "uint144"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageEthPrice",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint224",
+              "name": "_x",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct FixedPoint.uq112x112",
+          "name": "priceAverage",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageEthPrices",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint224",
+              "name": "_x",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct FixedPoint.uq112x112[]",
+          "name": "averagePrices",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageTokenPrice",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint224",
+              "name": "_x",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct FixedPoint.uq112x112",
+          "name": "priceAverage",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageTokenPrices",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint224",
+              "name": "_x",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct FixedPoint.uq112x112[]",
+          "name": "averagePrices",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "wethAmounts",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageTokensForEth",
+      "outputs": [
+        {
+          "internalType": "uint144[]",
+          "name": "averageValuesInWETH",
+          "type": "uint144[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "wethAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeAverageTokensForEth",
+      "outputs": [
+        {
+          "internalType": "uint144",
+          "name": "",
+          "type": "uint144"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeTwoWayAveragePrice",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint224",
+              "name": "priceAverage",
+              "type": "uint224"
+            },
+            {
+              "internalType": "uint224",
+              "name": "ethPriceAverage",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct PriceLibrary.TwoWayAveragePrice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minTimeElapsed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxTimeElapsed",
+          "type": "uint256"
+        }
+      ],
+      "name": "computeTwoWayAveragePrices",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint224",
+              "name": "priceAverage",
+              "type": "uint224"
+            },
+            {
+              "internalType": "uint224",
+              "name": "ethPriceAverage",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct PriceLibrary.TwoWayAveragePrice[]",
+          "name": "prices",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceKey",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPriceObservationInWindow",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint32",
+              "name": "timestamp",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint224",
+              "name": "priceCumulativeLast",
+              "type": "uint224"
+            },
+            {
+              "internalType": "uint224",
+              "name": "ethPriceCumulativeLast",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct PriceLibrary.PriceObservation",
+          "name": "observation",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timeFrom",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timeTo",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPriceObservationsInRange",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint32",
+              "name": "timestamp",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint224",
+              "name": "priceCumulativeLast",
+              "type": "uint224"
+            },
+            {
+              "internalType": "uint224",
+              "name": "ethPriceCumulativeLast",
+              "type": "uint224"
+            }
+          ],
+          "internalType": "struct PriceLibrary.PriceObservation[]",
+          "name": "prices",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceKey",
+          "type": "uint256"
+        }
+      ],
+      "name": "hasPriceObservationInWindow",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "updatePrice",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "tokens",
+          "type": "address[]"
+        }
+      ],
+      "name": "updatePrices",
+      "outputs": [
+        {
+          "internalType": "bool[]",
+          "name": "pricesUpdated",
+          "type": "bool[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x233cbd1760481d041481935c2b75eb7e1697b9396b5488c143d93c7c548dc970",
+  "receipt": {
+    "to": null,
+    "from": "0x8740d0EF44FFd926302E36CfAf7A38e61dAD550e",
+    "contractAddress": "0x235F273f05Bb2129aD32377AA3E8257a55B1A3b9",
+    "transactionIndex": 8,
+    "gasUsed": "2730537",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x5fe4b7831c2b488f79e40d5dd25c133a92ee8fc3bb688612ac6a79f78c3f3b48",
+    "transactionHash": "0x233cbd1760481d041481935c2b75eb7e1697b9396b5488c143d93c7c548dc970",
+    "logs": [],
+    "blockNumber": 7462905,
+    "cumulativeGasUsed": "3286477",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+    "0x72710B0b93c8F86aEf4ec8bd832868A15df50375"
+  ],
+  "solcInputHash": "0x352c5d9ff043f69ea087dea0c3a50477b7bb27dd18de162ad9598a7dcac9a4e0",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.8+commit.0bbfe453\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"uniswapFactory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"weth\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"canUpdatePrice\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"}],\"name\":\"canUpdatePrices\",\"outputs\":[{\"internalType\":\"bool[]\",\"name\":\"canUpdateArr\",\"type\":\"bool[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"tokenAmounts\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageEthForTokens\",\"outputs\":[{\"internalType\":\"uint144[]\",\"name\":\"averageValuesInWETH\",\"type\":\"uint144[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageEthForTokens\",\"outputs\":[{\"internalType\":\"uint144\",\"name\":\"\",\"type\":\"uint144\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageEthPrice\",\"outputs\":[{\"components\":[{\"internalType\":\"uint224\",\"name\":\"_x\",\"type\":\"uint224\"}],\"internalType\":\"struct FixedPoint.uq112x112\",\"name\":\"priceAverage\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageEthPrices\",\"outputs\":[{\"components\":[{\"internalType\":\"uint224\",\"name\":\"_x\",\"type\":\"uint224\"}],\"internalType\":\"struct FixedPoint.uq112x112[]\",\"name\":\"averagePrices\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageTokenPrice\",\"outputs\":[{\"components\":[{\"internalType\":\"uint224\",\"name\":\"_x\",\"type\":\"uint224\"}],\"internalType\":\"struct FixedPoint.uq112x112\",\"name\":\"priceAverage\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageTokenPrices\",\"outputs\":[{\"components\":[{\"internalType\":\"uint224\",\"name\":\"_x\",\"type\":\"uint224\"}],\"internalType\":\"struct FixedPoint.uq112x112[]\",\"name\":\"averagePrices\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"wethAmounts\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageTokensForEth\",\"outputs\":[{\"internalType\":\"uint144[]\",\"name\":\"averageValuesInWETH\",\"type\":\"uint144[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"wethAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeAverageTokensForEth\",\"outputs\":[{\"internalType\":\"uint144\",\"name\":\"\",\"type\":\"uint144\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeTwoWayAveragePrice\",\"outputs\":[{\"components\":[{\"internalType\":\"uint224\",\"name\":\"priceAverage\",\"type\":\"uint224\"},{\"internalType\":\"uint224\",\"name\":\"ethPriceAverage\",\"type\":\"uint224\"}],\"internalType\":\"struct PriceLibrary.TwoWayAveragePrice\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"minTimeElapsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxTimeElapsed\",\"type\":\"uint256\"}],\"name\":\"computeTwoWayAveragePrices\",\"outputs\":[{\"components\":[{\"internalType\":\"uint224\",\"name\":\"priceAverage\",\"type\":\"uint224\"},{\"internalType\":\"uint224\",\"name\":\"ethPriceAverage\",\"type\":\"uint224\"}],\"internalType\":\"struct PriceLibrary.TwoWayAveragePrice[]\",\"name\":\"prices\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"priceKey\",\"type\":\"uint256\"}],\"name\":\"getPriceObservationInWindow\",\"outputs\":[{\"components\":[{\"internalType\":\"uint32\",\"name\":\"timestamp\",\"type\":\"uint32\"},{\"internalType\":\"uint224\",\"name\":\"priceCumulativeLast\",\"type\":\"uint224\"},{\"internalType\":\"uint224\",\"name\":\"ethPriceCumulativeLast\",\"type\":\"uint224\"}],\"internalType\":\"struct PriceLibrary.PriceObservation\",\"name\":\"observation\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"timeFrom\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timeTo\",\"type\":\"uint256\"}],\"name\":\"getPriceObservationsInRange\",\"outputs\":[{\"components\":[{\"internalType\":\"uint32\",\"name\":\"timestamp\",\"type\":\"uint32\"},{\"internalType\":\"uint224\",\"name\":\"priceCumulativeLast\",\"type\":\"uint224\"},{\"internalType\":\"uint224\",\"name\":\"ethPriceCumulativeLast\",\"type\":\"uint224\"}],\"internalType\":\"struct PriceLibrary.PriceObservation[]\",\"name\":\"prices\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"priceKey\",\"type\":\"uint256\"}],\"name\":\"hasPriceObservationInWindow\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"updatePrice\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"}],\"name\":\"updatePrices\",\"outputs\":[{\"internalType\":\"bool[]\",\"name\":\"pricesUpdated\",\"type\":\"bool[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"canUpdatePrice(address)\":{\"details\":\"Returns a boolean indicating whether the price of `token` can be updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation.\"},\"canUpdatePrices(address[])\":{\"details\":\"Returns a boolean array indicating whether the price of each token in `tokens` can be updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation.\"},\"computeAverageEthForTokens(address,uint256,uint256,uint256)\":{\"details\":\"Compute the average value of `tokenAmount` ether in terms of weth.   * Computes the time-weighted average price of `token` in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by `wethAmount`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeAverageEthForTokens(address[],uint256[],uint256,uint256)\":{\"details\":\"Compute the average value of each amount of tokens in `tokenAmounts` in terms of the corresponding token in `tokens`.   * Computes the time-weighted average price of each token in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by the corresponding amount in `tokenAmounts`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeAverageEthPrice(address,uint256,uint256)\":{\"details\":\"Returns the UQ112x112 struct representing the average price of weth in terms of `token`.   * Computes the time-weighted average price of weth in terms of `token` by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeAverageEthPrices(address[],uint256,uint256)\":{\"details\":\"Returns the UQ112x112 structs representing the average price of weth in terms of each token in `tokens`.   * Computes the time-weighted average price of weth in terms of each token by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeAverageTokenPrice(address,uint256,uint256)\":{\"details\":\"Returns the UQ112x112 struct representing the average price of `token` in terms of weth.   * Computes the time-weighted average price of `token` in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeAverageTokenPrices(address[],uint256,uint256)\":{\"details\":\"Returns the UQ112x112 structs representing the average price of each token in `tokens` in terms of weth.   * Computes the time-weighted average price of each token in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeAverageTokensForEth(address,uint256,uint256,uint256)\":{\"details\":\"Compute the average value of `wethAmount` ether in terms of `token`.   * Computes the time-weighted average price of weth in terms of the token by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by `wethAmount`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeAverageTokensForEth(address[],uint256[],uint256,uint256)\":{\"details\":\"Compute the average value of each amount of ether in `wethAmounts` in terms of the corresponding token in `tokens`.   * Computes the time-weighted average price of weth in terms of each token by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by the corresponding amount in `wethAmounts`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeTwoWayAveragePrice(address,uint256,uint256)\":{\"details\":\"Returns the TwoWayAveragePrice struct representing the average price of weth in terms of `token` and the average price of `token` in terms of weth.   * Computes the time-weighted average price of weth in terms of `token` and the price of `token` in terms of weth by getting the current prices from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"computeTwoWayAveragePrices(address[],uint256,uint256)\":{\"details\":\"Returns the TwoWayAveragePrice structs representing the average price of weth in terms of each token in `tokens` and the average price of each token in terms of weth.   * Computes the time-weighted average price of weth in terms of each token and the price of each token in terms of weth by getting the current prices from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour.\"},\"getPriceObservationInWindow(address,uint256)\":{\"details\":\"Returns the price observation for `token` recorded in `priceKey`. Reverts if no prices have been recorded for that key.\",\"params\":{\"priceKey\":\"Index of the hour to query\",\"token\":\"Token to retrieve a price for\"}},\"getPriceObservationsInRange(address,uint256,uint256)\":{\"details\":\"Returns all price observations for `token` recorded between `timeFrom` and `timeTo`.\"},\"hasPriceObservationInWindow(address,uint256)\":{\"details\":\"Returns a boolean indicating whether a price was recorded for `token` at `priceKey`.\",\"params\":{\"priceKey\":\"Index of the hour to check\",\"token\":\"Token to check if the oracle has a price for\"}},\"updatePrice(address)\":{\"details\":\"Attempts to update the price of `token` and returns a boolean indicating whether it was updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation.\"},\"updatePrices(address[])\":{\"details\":\"Attempts to update the price of each token in `tokens` and returns a boolean array indicating which tokens had their prices updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"temp-contracts/IndexedUniswapV2Oracle.sol\":\"IndexedUniswapV2Oracle\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol\":{\"keccak256\":\"0x7c9bc70e5996c763e02ff38905282bc24fb242b0ef2519a003b36824fc524a4b\",\"urls\":[\"bzz-raw://85d5ad2dd23ee127f40907a12865a1e8cb5828814f6f2480285e1827dd72dedf\",\"dweb:/ipfs/QmayKQWJgWmr46DqWseADyUanmqxh662hPNdAkdHRjiQQH\"]},\"temp-contracts/IndexedUniswapV2Oracle.sol\":{\"keccak256\":\"0x2bfc158e08eb0e366718ab6353eb47dfdc9273ce87c2ab929df9a4b7644fbb1e\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://d16159a3eb8fcba19f2f936adaed74db6e13f6e84d68343bca984efb2decd3c4\",\"dweb:/ipfs/QmW7B5XdQbaT8Kd4w1xdhwRchho5MF9vZojFtygZQYJxt3\"]},\"temp-contracts/interfaces/IIndexedUniswapV2Oracle.sol\":{\"keccak256\":\"0xfebe2d6eb9d0a456cc8ef805b011d429de0eb206a90d99755262fded86f3ed95\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://5ea99a71a45f955dce629d887f44136477b6775ea3301e64d21b61154ee450fa\",\"dweb:/ipfs/QmcEbyAmyuZLAQUUhoexN4ZiLeMegRJAZMeCBtK31PZ2VF\"]},\"temp-contracts/lib/Bits.sol\":{\"keccak256\":\"0x274819d5eca53fa0de70cb744f97567ce6c26ab6709c8bbde22cd643cd031cb7\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://64cf2a9b967c45e68db8473cbfae784939cecd8f4c06c586682dba6f86e69fc2\",\"dweb:/ipfs/QmXT38attR9ieXpwksK3MubgcwjBzdYK7bBCTBEhUVcoMH\"]},\"temp-contracts/lib/FixedPoint.sol\":{\"keccak256\":\"0xb55e5d7cba20c7c72b497f0553d1f7297a06b02b74c775c1de722a4975c38733\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://753f4e3e1d7e414ab3fa8a924580a53e068469cc7e2822c11e1a15d9742385a3\",\"dweb:/ipfs/QmSNCV5vfdq8A9iVmzLyJGuz6FDXAm3NAyuuahmeacHXUX\"]},\"temp-contracts/lib/IndexedPriceMapLibrary.sol\":{\"keccak256\":\"0xcf7c04c09239fc433c6a6277e4947a4bea5f7b7a97f5ed25ff65e1910c1dcbac\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://d9cdad41b00c4254e21e007c93188a44c5ba29c58e0e820e990b43c5b63afdbe\",\"dweb:/ipfs/QmdL82MM3UMQyitaZc3dL5R6rPTBJSq6akQ3LUyXsizEea\"]},\"temp-contracts/lib/KeyIndex.sol\":{\"keccak256\":\"0x34734d94830fb91acda3908e9938a2bc64e598b74be928112de3546637acc47d\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://e4743d1a0b0b5fb66b43afa434a22abfeb56723ae57c62ef24068477ca2f243c\",\"dweb:/ipfs/QmUzys6HfHhhBfJ79FknNGy2KPpvyAKVUTq42GDqwcKnBq\"]},\"temp-contracts/lib/PriceLibrary.sol\":{\"keccak256\":\"0xde7020b323ba1a96741733c0497381141cbe1378a8cf98992e68f53a654ef785\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://f14d5c59524a6544f92cfae479b7cec99d5d104b2eed5f7530b330d5223dae81\",\"dweb:/ipfs/QmXPvAS1v8JfKqK5MZ7MSW7ayFUcwGd7WwyYCTgP5swokz\"]},\"temp-contracts/lib/UniswapV2Library.sol\":{\"keccak256\":\"0xf110c5ecda06dcbc56d42ab8d3cfa6664bbedd67c880a70dc10e4bef6346e2a2\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://82769859a8eee4f67794b992452a4b7114a2d372118ccdba4034d7a1020165e4\",\"dweb:/ipfs/QmSnb7JGJqc4Nqy1hMwyGe3zyX3TfvWNSX3dgWUZLaKoTu\"]},\"temp-contracts/lib/UniswapV2OracleLibrary.sol\":{\"keccak256\":\"0x0c5df03edcc875601fa9de5624cfa28f08868adfc91d09200ad7fb39f723f85d\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://56b2d2b696be0326b193dc0fa9d6af4d47642771860a7352dc0f65ba23c85f6f\",\"dweb:/ipfs/QmSJV8tRhUBtTHZEBN35RySvM28nJYVxogNy8VumvpFgyK\"]}},\"version\":1}",
+  "bytecode": "0x60c06040523480156200001157600080fd5b506040516200318438038062003184833981016040819052620000349162000053565b6001600160601b0319606092831b8116608052911b1660a052620000aa565b6000806040838503121562000066578182fd5b8251620000738162000091565b6020840151909250620000868162000091565b809150509250929050565b6001600160a01b0381168114620000a757600080fd5b50565b60805160601c60a05160601c61306f620001156000398061061052806109c05280610a7f5280610c865280610d025280610de95280610e5f5280610f9c528061104d5250806105ed528061099d5280610a5c5280610ce05280610e3c528061102a525061306f6000f3fe608060405234801561001057600080fd5b506004361061010b5760003560e01c80637c906a2a116100a257806396e85ced1161007157806396e85ced14610265578063bf6dd82e14610278578063c735e38c1461028b578063cdee7f6e146102ab578063ffd97b6f146102be5761010b565b80637c906a2a1461020c5780637e5296e01461021f57806388a14c3c1461023f5780639691b116146102525761010b565b80634f2acedf116100de5780634f2acedf1461019957806357653615146101b95780635acd73d7146101d9578063768d2c19146101ec5761010b565b806310bc482a146101105780632d726197146101395780633a9d6535146101595780634506006014610179575b600080fd5b61012361011e36600461250d565b6102de565b6040516101309190612940565b60405180910390f35b61014c610147366004612668565b61030f565b60405161013091906128bd565b61016c610167366004612537565b6103f1565b6040516101309190612ffa565b61018c6101873660046125ee565b610430565b60405161013091906128ff565b6101ac6101a736600461256a565b610551565b604051610130919061300d565b6101cc6101c7366004612537565b6105a9565b6040516101309190612fec565b6101236101e73660046124f2565b6105de565b6101ff6101fa366004612668565b610676565b6040516101309190612870565b61018c61021a3660046125ee565b610743565b61023261022d3660046125af565b610845565b60405161013091906127e8565b61023261024d3660046125af565b6108e6565b61016c610260366004612537565b610a10565b6101236102733660046124f2565b610a45565b6101ac61028636600461256a565b610adb565b61029e61029936600461250d565b610b12565b6040516101309190612fde565b61014c6102b9366004612668565b610b69565b6102d16102cc366004612537565b610c36565b604051610130919061282e565b6001600160a01b0382166000908152602081905260408120610306908363ffffffff610c6a16565b90505b92915050565b606082828181101561033c5760405162461bcd60e51b815260040161033390612a73565b60405180910390fd5b85806001600160401b038111801561035357600080fd5b5060405190808252806020026020018201604052801561038d57816020015b61037a61243e565b8152602001906001900390816103725790505b50935060005b818110156103e5576103c68989838181106103aa57fe5b90506020020160208101906103bf91906124f2565b8888610c7c565b8582815181106103d257fe5b6020908102919091010152600101610393565b50505050949350505050565b6103f961243e565b82828181101561041b5760405162461bcd60e51b815260040161033390612a73565b610426868686610ddf565b9695505050505050565b60608282818110156104545760405162461bcd60e51b815260040161033390612a73565b878681146104745760405162461bcd60e51b815260040161033390612c0a565b806001600160401b038111801561048a57600080fd5b506040519080825280602002602001820160405280156104b4578160200160208202803683370190505b50935060005b81811015610543576105176105128a8a848181106104d457fe5b905060200201356105068e8e868181106104ea57fe5b90506020020160208101906104ff91906124f2565b8b8b610c7c565b9063ffffffff610f2c16565b610f8b565b85828151811061052357fe5b6001600160901b03909216602092830291909101909101526001016104ba565b505050509695505050505050565b60008282818110156105755760405162461bcd60e51b815260040161033390612a73565b61057d61243e565b610588888787610c7c565b905061059d610512828963ffffffff610f2c16565b98975050505050505050565b6105b1612450565b8282818110156105d35760405162461bcd60e51b815260040161033390612a73565b610426868686610f92565b600061063a6001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016837f000000000000000000000000000000000000000000000000000000000000000063ffffffff61114616565b61064657506000610671565b6001600160a01b038216600090815260208190526040902061066e904263ffffffff6111fc16565b90505b919050565b606082828181101561069a5760405162461bcd60e51b815260040161033390612a73565b85806001600160401b03811180156106b157600080fd5b506040519080825280602002602001820160405280156106eb57816020015b6106d8612450565b8152602001906001900390816106d05790505b50935060005b818110156103e55761072489898381811061070857fe5b905060200201602081019061071d91906124f2565b8888610f92565b85828151811061073057fe5b60209081029190910101526001016106f1565b60608282818110156107675760405162461bcd60e51b815260040161033390612a73565b878681146107875760405162461bcd60e51b815260040161033390612dd2565b806001600160401b038111801561079d57600080fd5b506040519080825280602002602001820160405280156107c7578160200160208202803683370190505b50935060005b81811015610543576108196105128a8a848181106107e757fe5b905060200201356105068e8e868181106107fd57fe5b905060200201602081019061081291906124f2565b8b8b610ddf565b85828151811061082557fe5b6001600160901b03909216602092830291909101909101526001016107cd565b606081806001600160401b038111801561085e57600080fd5b50604051908082528060200260200182016040528015610888578160200160208202803683370190505b50915060005b818110156108de576108ba8585838181106108a557fe5b905060200201602081019061027391906124f2565b8382815181106108c657fe5b9115156020928302919091019091015260010161088e565b505092915050565b606081806001600160401b03811180156108ff57600080fd5b50604051908082528060200260200182016040528015610929578160200160208202803683370190505b50915060005b818110156108de57600085858381811061094557fe5b905060200201602081019061095a91906124f2565b6001600160a01b038116600090815260208190526040812091925090610986904263ffffffff6111fc16565b90508080156109ea57506109ea6001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016837f000000000000000000000000000000000000000000000000000000000000000063ffffffff61114616565b8584815181106109f657fe5b91151560209283029190910190910152505060010161092f565b610a1861243e565b828281811015610a3a5760405162461bcd60e51b815260040161033390612a73565b610426868686610c7c565b6000610a4f612467565b610aa96001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016847f000000000000000000000000000000000000000000000000000000000000000063ffffffff61123916565b6001600160a01b0384166000908152602081905260409020909150610ad4908263ffffffff61131c16565b9392505050565b6000828281811015610aff5760405162461bcd60e51b815260040161033390612a73565b610b0761243e565b610588888787610ddf565b610b1a612467565b6001600160a01b0383166000908152602081905260409020610b42908363ffffffff6113d016565b805190915063ffffffff166103095760405162461bcd60e51b815260040161033390612e98565b6060828281811015610b8d5760405162461bcd60e51b815260040161033390612a73565b85806001600160401b0381118015610ba457600080fd5b50604051908082528060200260200182016040528015610bde57816020015b610bcb61243e565b815260200190600190039081610bc35790505b50935060005b818110156103e557610c17898983818110610bfb57fe5b9050602002016020810190610c1091906124f2565b8888610ddf565b858281518110610c2357fe5b6020908102919091010152600101610be4565b6001600160a01b0383166000908152602081905260409020606090610c6290848463ffffffff61142616565b949350505050565b6000610306838363ffffffff61156616565b610c8461243e565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161415610cd057610cc96001806115a9565b9050610ad4565b600080610d2d6001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000167f00000000000000000000000000000000000000000000000000000000000000008863ffffffff61161d16565b6001600160a01b0388166000908152602081905260408120929450909250908190610d659063ffffffff808716908a908a9061168916565b9150915081610d865760405162461bcd60e51b815260040161033390612b58565b6001600160a01b03881660009081526020818152604080832084845260019081019092529091208054918101549091610dd29163ffffffff909116906001600160e01b03168787611783565b9998505050505050505050565b610de761243e565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161415610e2c57610cc96001806115a9565b600080610e896001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016877f000000000000000000000000000000000000000000000000000000000000000063ffffffff61161d16565b6001600160a01b0388166000908152602081905260408120929450909250908190610ec19063ffffffff808716908a908a9061168916565b9150915081610ee25760405162461bcd60e51b815260040161033390612ae9565b6001600160a01b03881660009081526020818152604080832084845260010190915290208054610dd29063ffffffff81169064010000000090046001600160e01b03168787611783565b610f34612487565b6000821580610f5a57505082516001600160e01b031682810290838281610f5757fe5b04145b610f765760405162461bcd60e51b815260040161033390612e55565b60408051602081019091529081529392505050565b5160701c90565b610f9a612450565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161415611015576040518060400160405280610fe960016117a1565b516001600160e01b0316815260200161100260016117a1565b516001600160e01b031690529050610ad4565b61101d612467565b6110776001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016867f000000000000000000000000000000000000000000000000000000000000000063ffffffff61123916565b80516001600160a01b03871660009081526020819052604081209293509182916110af919063ffffffff908116908990899061168916565b91509150816110d05760405162461bcd60e51b815260040161033390612a03565b6110d8612467565b506001600160a01b03871660009081526020818152604080832084845260019081018352928190208151606081018352815463ffffffff80821683526001600160e01b036401000000009092048216958301959095529190940154169083015261059d90829086906117cc16565b60008061115485858561183b565b9050600080826001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b15801561119257600080fd5b505afa1580156111a6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111ca91906126b6565b5091509150816001600160701b03166000141580156111f157506001600160701b03811615155b979650505050505050565b60008061120e8363ffffffff16611859565b9050611220848263ffffffff61156616565b1561122f576000915050610309565b610c628484611861565b611241612467565b60008061124e85856118ea565b91509150600061125f878484611974565b9050600080600061126f846119d1565b925092509250886001600160a01b0316866001600160a01b031614156112cf5760405180606001604052808263ffffffff168152602001846001600160e01b03168152602001836001600160e01b03168152509650505050505050610ad4565b60405180606001604052808263ffffffff168152602001836001600160e01b03168152602001846001600160e01b03168152509650505050505050610ad4565b5050505050509392505050565b60008061132d848460000151611861565b9050801561030657600061134a846000015163ffffffff16611859565b905061135c858263ffffffff611be416565b915081156113c857600081815260018681016020908152604092839020875181549289015163ffffffff1990931663ffffffff91821617166401000000006001600160e01b0393841602178155928701519290910180546001600160e01b031916929091169190911790555b509392505050565b6113d8612467565b506000908152600191820160209081526040918290208251606081018452815463ffffffff8116825264010000000090046001600160e01b0390811693820193909352930154169082015290565b6060600061143384611859565b9050600061144084611859565b90508181116114615760405162461bcd60e51b815260040161033390612d65565b606061147487848463ffffffff611c4916565b90506000600282518161148357fe5b049050806001600160401b038111801561149c57600080fd5b506040519080825280602002602001820160405280156114d657816020015b6114c3612467565b8152602001906001900390816114bb5790505b5094506020820160005b8281101561130f57815160f01c86810160008181526001808e0160209081526040928390208351606081018552815463ffffffff811682526001600160e01b03640100000000909104811693820193909352920154169181019190915289516002909501948a908590811061155157fe5b602090810291909101015250506001016114e0565b600080600061157484611d50565b6000828152602088905260409020549193509150806115995760009350505050610309565b610426818363ffffffff611d5e16565b6115b161243e565b6000826001600160701b0316116115da5760405162461bcd60e51b815260040161033390612fa7565b6040805160208101909152806001600160701b038416600160701b600160e01b03607087901b168161160857fe5b046001600160e01b0316815250905092915050565b60008060008061162d86866118ea565b91509150600061163e888484611974565b9050866001600160a01b0316836001600160a01b031614156116755760008061166683611d68565b97509550611681945050505050565b60008061166683611ee3565b935093915050565b600080600061169786611859565b905060006116a487612044565b9050808611158186111581806116b75750805b1561174357600084815260018b0160205260409020805463ffffffff1680158015906116e857508063ffffffff168b115b80156116fc5750888163ffffffff168c0311155b80156117105750898163ffffffff168c0310155b15611727576001869750975050505050505061177a565b821561174057506000965086955061177a945050505050565b50505b87890361174f81611859565b9450600061175c89611859565b905061176f8c878363ffffffff61204c16565b975097505050505050505b94509492505050565b61178b61243e565b6117988483878603612184565b95945050505050565b6117a961243e565b50604080516020810190915260709190911b600160701b600160e01b0316815290565b6117d4612450565b82518251036117e161243e565b6117f48560200151856020015184612184565b90506117fe61243e565b6118118660400151866040015185612184565b6040805180820190915292516001600160e01b039081168452905116602083015250949350505050565b600080600061184a85856118ea565b91509150610426868383611974565b610e10900490565b6000806118738363ffffffff16611859565b90506107086118878463ffffffff16612044565b10611896576001915050610309565b600019810160009081526001850160205260409020805463ffffffff1615806118cf5750805461070863ffffffff918216860390911610155b156118df57600192505050610309565b506000949350505050565b600080826001600160a01b0316846001600160a01b0316141561191f5760405162461bcd60e51b815260040161033390612bc5565b826001600160a01b0316846001600160a01b03161061193f578284611942565b83835b90925090506001600160a01b03821661196d5760405162461bcd60e51b815260040161033390612f13565b9250929050565b600083838360405160200161198a92919061276b565b604051602081830303815290604052805190602001206040516020016119b1929190612792565b60408051601f198184030181529190528051602090910120949350505050565b60008060006119de6121c7565b9050836001600160a01b0316635909c0d56040518163ffffffff1660e01b815260040160206040518083038186803b158015611a1957600080fd5b505afa158015611a2d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611a51919061270a565b9250836001600160a01b0316635a3d54936040518163ffffffff1660e01b815260040160206040518083038186803b158015611a8c57600080fd5b505afa158015611aa0573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611ac4919061270a565b91506000806000866001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015611b0457600080fd5b505afa158015611b18573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611b3c91906126b6565b925092509250826001600160701b0316600014158015611b6457506001600160701b03821615155b611b805760405162461bcd60e51b815260040161033390612cf9565b8363ffffffff168163ffffffff1614611bda5780840363ffffffff8116611ba784866115a9565b516001600160e01b031602969096019563ffffffff8116611bc885856115a9565b516001600160e01b0316029590950194505b5050509193909250565b6000806000611bf284611d50565b600082815260208890526040812054929450909250611c17828463ffffffff611d5e16565b159050801561042657611c30828463ffffffff6121d116565b6000858152602089905260409020559695505050505050565b6060828203600080611c5a86611d50565b91509150600080611c6a87611d50565b9150915084600202601e016001600160401b0381118015611c8a57600080fd5b506040519080825280601f01601f191660200182016040528015611cb5576020820181803683370190505b50600080825285815260208b905260408120549197508591611cdd908663ffffffff6121d916565b905060005b84831015611d1e57611cfb89838363ffffffff6121e216565b600192909201600081815260208d90526040902054909290915061010001611ce2565b611d2e828563ffffffff61233316565b9150611d4189838363ffffffff6121e216565b50505050505050509392505050565b61010081049160ff90911690565b1c60019081161490565b600080611d736121c7565b9050826001600160a01b0316635909c0d56040518163ffffffff1660e01b815260040160206040518083038186803b158015611dae57600080fd5b505afa158015611dc2573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611de6919061270a565b91506000806000856001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015611e2657600080fd5b505afa158015611e3a573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611e5e91906126b6565b925092509250826001600160701b0316600014158015611e8657506001600160701b03821615155b611ea25760405162461bcd60e51b815260040161033390612c8d565b8363ffffffff168163ffffffff1614611edb5780840363ffffffff8116611ec984866115a9565b516001600160e01b0316029590950194505b505050915091565b600080611eee6121c7565b9050826001600160a01b0316635a3d54936040518163ffffffff1660e01b815260040160206040518083038186803b158015611f2957600080fd5b505afa158015611f3d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611f61919061270a565b91506000806000856001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015611fa157600080fd5b505afa158015611fb5573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611fd991906126b6565b925092509250826001600160701b031660001415801561200157506001600160701b03821615155b61201d5760405162461bcd60e51b815260040161033390612997565b8363ffffffff168163ffffffff1614611edb5780840363ffffffff8116611ec985856115a9565b610e10900690565b60008060008061205b86611d50565b909250905060008080808461209657856120875760405162461bcd60e51b815260040161033390612f4a565b600186039550600193506120dc565b50600085815260208b905260409020546120b6818663ffffffff61234116565b909350915082156120cd57818503840193506120dc565b60001990950194928401600101925b821580156120ea5750888411155b1561214b5750600085815260208b905260409020548061212e578561211c575060009650869550611681945050505050565b61010084019350600186039550612146565b6121378161237c565b91508160ff0384019350600192505b6120dc565b88841115612166575060009650869550611681945050505050565b60016121728784612433565b97509750505050505050935093915050565b61218c61243e565b60405180602001604052808363ffffffff168686036001600160e01b0316816121b157fe5b046001600160e01b031681525090509392505050565b63ffffffff421690565b6001901b1790565b600019901b1690565b816121ec5761232e565b82518060208501018060005b85811c15612328575b85811c60ff1661221357600801612201565b85811c60071680801561225d57600181146122625760028114612275576003811461228b57600481146122a857600581146122be57600681146122db57600781146122fb5761231e565b61231e565b86830160f01b845260028401935061231e565b86600184010160f01b845260028401935061231e565b86600184010160e01b87840160f01b17845260048401935061231e565b86600284010160f01b845260028401935061231e565b86600284010160e01b87840160f01b17845260048401935061231e565b86600284010160e01b87600185010160f01b17845260048401935061231e565b86600284010160d01b87600185010160e01b1787840160f01b1784526006840193505b50506003016121f8565b50030183525b505050565b60001960ff919091031c1690565b60008061010083900384901b8061235f57506000915081905061196d565b6001846101000361236f8361237c565b0392509250509250929050565b6000818061239c5760405162461bcd60e51b81526004016103339061294b565b600160801b81106123af576080918201911c5b6801000000000000000081106123c7576040918201911c5b64010000000081106123db576020918201911c5b6201000081106123ed576010918201911c5b61010081106123fe576008918201911c5b6010811061240e576004918201911c5b6004811061241e576002918201911c5b6002811061242d576001820191505b50919050565b610100919091020190565b60408051602081019091526000815290565b604080518082019091526000808252602082015290565b604080516060810182526000808252602082018190529181019190915290565b6040518060200160405280600081525090565b80356001600160a01b038116811461030957600080fd5b60008083601f8401126124c2578182fd5b5081356001600160401b038111156124d8578182fd5b602083019150836020808302850101111561196d57600080fd5b600060208284031215612503578081fd5b610306838361249a565b6000806040838503121561251f578081fd5b612529848461249a565b946020939093013593505050565b60008060006060848603121561254b578081fd5b612555858561249a565b95602085013595506040909401359392505050565b6000806000806080858703121561257f578081fd5b84356001600160a01b0381168114612595578182fd5b966020860135965060408601359560600135945092505050565b600080602083850312156125c1578182fd5b82356001600160401b038111156125d6578283fd5b6125e2858286016124b1565b90969095509350505050565b60008060008060008060808789031215612606578182fd5b86356001600160401b038082111561261c578384fd5b6126288a838b016124b1565b90985096506020890135915080821115612640578384fd5b5061264d89828a016124b1565b979a9699509760408101359660609091013595509350505050565b6000806000806060858703121561267d578384fd5b84356001600160401b03811115612692578485fd5b61269e878288016124b1565b90989097506020870135966040013595509350505050565b6000806000606084860312156126ca578283fd5b83516126d581613021565b60208501519093506126e681613021565b604085015190925063ffffffff811681146126ff578182fd5b809150509250925092565b60006020828403121561271b578081fd5b5051919050565b805163ffffffff1682526020808201516001600160e01b039081169184019190915260409182015116910152565b80516001600160e01b03908116835260209182015116910152565b6bffffffffffffffffffffffff19606093841b811682529190921b16601482015260280190565b6001600160f81b0319815260609290921b6bffffffffffffffffffffffff1916600183015260158201527f96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f603582015260550190565b6020808252825182820181905260009190848201906040850190845b81811015612822578351151583529284019291840191600101612804565b50909695505050505050565b6020808252825182820181905260009190848201906040850190845b818110156128225761285d838551612722565b928401926060929092019160010161284a565b602080825282518282018190526000919060409081850190868401855b828110156128b0576128a0848351612750565b928401929085019060010161288d565b5091979650505050505050565b6020808252825182820181905260009190848201906040850190845b81811015612822578351516001600160e01b0316835292840192918401916001016128d9565b6020808252825182820181905260009190848201906040850190845b818110156128225783516001600160901b03168352928401929184019160010161291b565b901515815260200190565b6020808252602c908201527f426974733a3a686967686573744269745365743a2056616c756520302068617360408201526b081b9bc8189a5d1cc81cd95d60a21b606082015260800190565b60208082526046908201527f556e697377617056324f7261636c654c6962726172793a3a63757272656e744360408201527f756d756c61746976655072696365313a205061697220686173206e6f2072657360608201526532b93b32b99760d11b608082015260a00190565b6020808252604a908201527f496e6465786564556e697377617056324f7261636c653a3a5f67657454776f5760408201527f617950726963653a204e6f20707269636520666f756e6420696e2070726f76696060820152693232b2103930b733b29760b11b608082015260a00190565b60208082526050908201527f496e6465786564556e697377617056324f7261636c653a3a76616c69644d696e60408201527f4d61783a204d696e696d756d206167652063616e206e6f74206265206869676860608201526f32b9103a3430b71036b0bc34b6bab69760811b608082015260a00190565b60208082526049908201527f496e6465786564556e697377617056324f7261636c653a3a5f676574546f6b6560408201527f6e50726963653a204e6f20707269636520666f756e6420696e2070726f76696460608201526832b2103930b733b29760b91b608082015260a00190565b60208082526047908201527f496e6465786564556e697377617056324f7261636c653a3a5f6765744574685060408201527f726963653a204e6f20707269636520666f756e6420696e2070726f7669646564606082015266103930b733b29760c91b608082015260a00190565b60208082526025908201527f556e697377617056324c6962726172793a204944454e544943414c5f41444452604082015264455353455360d81b606082015260800190565b6020808252605e908201527f496e6465786564556e697377617056324f7261636c653a3a636f6d707574654160408201527f766572616765546f6b656e73466f724574683a20546f6b656e7320616e64206160608201527f6d6f756e7473206861766520646966666572656e74206c656e677468732e0000608082015260a00190565b60208082526046908201527f556e697377617056324f7261636c654c6962726172793a3a63757272656e744360408201527f756d756c61746976655072696365303a205061697220686173206e6f2072657360608201526532b93b32b99760d11b608082015260a00190565b60208082526046908201527f556e697377617056324f7261636c654c6962726172793a3a63757272656e744360408201527f756d756c61746976655072696365733a205061697220686173206e6f2072657360608201526532b93b32b99760d11b608082015260a00190565b60208082526047908201527f496e646578656450726963654d61704c6962726172793a3a676574507269636560408201527f4f62736572766174696f6e73496e52616e67653a20496e76616c69642074696d606082015266652072616e676560c81b608082015260a00190565b6020808252605e908201527f496e6465786564556e697377617056324f7261636c653a3a636f6d707574654160408201527f766572616765457468466f72546f6b656e733a20546f6b656e7320616e64206160608201527f6d6f756e7473206861766520646966666572656e74206c656e677468732e0000608082015260a00190565b60208082526023908201527f4669786564506f696e743a204d554c5449504c49434154494f4e5f4f564552466040820152624c4f5760e81b606082015260800190565b60208082526055908201527f496e6465786564556e697377617056324f7261636c653a3a676574507269636560408201527f4f62736572766174696f6e496e57696e646f773a204e6f207072696365206f6260608201527439b2b93b32b21034b71033b4bb32b7103437bab91760591b608082015260a00190565b6020808252601e908201527f556e697377617056324c6962726172793a205a45524f5f414444524553530000604082015260600190565b60208082526038908201527f4b6579496e6465783a3a66696e644c6173745365744b65793a43616e206e6f7460408201527f2071756572792076616c7565207072696f7220746f20302e0000000000000000606082015260800190565b60208082526017908201527f4669786564506f696e743a204449565f42595f5a45524f000000000000000000604082015260600190565b606081016103098284612722565b604081016103098284612750565b90516001600160e01b0316815260200190565b6001600160901b0391909116815260200190565b6001600160701b038116811461303657600080fd5b5056fea2646970667358221220e5c4900cd3f704c5943ca83efc627e5bd677f362cf67bddb0fe7e3fbcd3a4db864736f6c63430006080033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061010b5760003560e01c80637c906a2a116100a257806396e85ced1161007157806396e85ced14610265578063bf6dd82e14610278578063c735e38c1461028b578063cdee7f6e146102ab578063ffd97b6f146102be5761010b565b80637c906a2a1461020c5780637e5296e01461021f57806388a14c3c1461023f5780639691b116146102525761010b565b80634f2acedf116100de5780634f2acedf1461019957806357653615146101b95780635acd73d7146101d9578063768d2c19146101ec5761010b565b806310bc482a146101105780632d726197146101395780633a9d6535146101595780634506006014610179575b600080fd5b61012361011e36600461250d565b6102de565b6040516101309190612940565b60405180910390f35b61014c610147366004612668565b61030f565b60405161013091906128bd565b61016c610167366004612537565b6103f1565b6040516101309190612ffa565b61018c6101873660046125ee565b610430565b60405161013091906128ff565b6101ac6101a736600461256a565b610551565b604051610130919061300d565b6101cc6101c7366004612537565b6105a9565b6040516101309190612fec565b6101236101e73660046124f2565b6105de565b6101ff6101fa366004612668565b610676565b6040516101309190612870565b61018c61021a3660046125ee565b610743565b61023261022d3660046125af565b610845565b60405161013091906127e8565b61023261024d3660046125af565b6108e6565b61016c610260366004612537565b610a10565b6101236102733660046124f2565b610a45565b6101ac61028636600461256a565b610adb565b61029e61029936600461250d565b610b12565b6040516101309190612fde565b61014c6102b9366004612668565b610b69565b6102d16102cc366004612537565b610c36565b604051610130919061282e565b6001600160a01b0382166000908152602081905260408120610306908363ffffffff610c6a16565b90505b92915050565b606082828181101561033c5760405162461bcd60e51b815260040161033390612a73565b60405180910390fd5b85806001600160401b038111801561035357600080fd5b5060405190808252806020026020018201604052801561038d57816020015b61037a61243e565b8152602001906001900390816103725790505b50935060005b818110156103e5576103c68989838181106103aa57fe5b90506020020160208101906103bf91906124f2565b8888610c7c565b8582815181106103d257fe5b6020908102919091010152600101610393565b50505050949350505050565b6103f961243e565b82828181101561041b5760405162461bcd60e51b815260040161033390612a73565b610426868686610ddf565b9695505050505050565b60608282818110156104545760405162461bcd60e51b815260040161033390612a73565b878681146104745760405162461bcd60e51b815260040161033390612c0a565b806001600160401b038111801561048a57600080fd5b506040519080825280602002602001820160405280156104b4578160200160208202803683370190505b50935060005b81811015610543576105176105128a8a848181106104d457fe5b905060200201356105068e8e868181106104ea57fe5b90506020020160208101906104ff91906124f2565b8b8b610c7c565b9063ffffffff610f2c16565b610f8b565b85828151811061052357fe5b6001600160901b03909216602092830291909101909101526001016104ba565b505050509695505050505050565b60008282818110156105755760405162461bcd60e51b815260040161033390612a73565b61057d61243e565b610588888787610c7c565b905061059d610512828963ffffffff610f2c16565b98975050505050505050565b6105b1612450565b8282818110156105d35760405162461bcd60e51b815260040161033390612a73565b610426868686610f92565b600061063a6001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016837f000000000000000000000000000000000000000000000000000000000000000063ffffffff61114616565b61064657506000610671565b6001600160a01b038216600090815260208190526040902061066e904263ffffffff6111fc16565b90505b919050565b606082828181101561069a5760405162461bcd60e51b815260040161033390612a73565b85806001600160401b03811180156106b157600080fd5b506040519080825280602002602001820160405280156106eb57816020015b6106d8612450565b8152602001906001900390816106d05790505b50935060005b818110156103e55761072489898381811061070857fe5b905060200201602081019061071d91906124f2565b8888610f92565b85828151811061073057fe5b60209081029190910101526001016106f1565b60608282818110156107675760405162461bcd60e51b815260040161033390612a73565b878681146107875760405162461bcd60e51b815260040161033390612dd2565b806001600160401b038111801561079d57600080fd5b506040519080825280602002602001820160405280156107c7578160200160208202803683370190505b50935060005b81811015610543576108196105128a8a848181106107e757fe5b905060200201356105068e8e868181106107fd57fe5b905060200201602081019061081291906124f2565b8b8b610ddf565b85828151811061082557fe5b6001600160901b03909216602092830291909101909101526001016107cd565b606081806001600160401b038111801561085e57600080fd5b50604051908082528060200260200182016040528015610888578160200160208202803683370190505b50915060005b818110156108de576108ba8585838181106108a557fe5b905060200201602081019061027391906124f2565b8382815181106108c657fe5b9115156020928302919091019091015260010161088e565b505092915050565b606081806001600160401b03811180156108ff57600080fd5b50604051908082528060200260200182016040528015610929578160200160208202803683370190505b50915060005b818110156108de57600085858381811061094557fe5b905060200201602081019061095a91906124f2565b6001600160a01b038116600090815260208190526040812091925090610986904263ffffffff6111fc16565b90508080156109ea57506109ea6001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016837f000000000000000000000000000000000000000000000000000000000000000063ffffffff61114616565b8584815181106109f657fe5b91151560209283029190910190910152505060010161092f565b610a1861243e565b828281811015610a3a5760405162461bcd60e51b815260040161033390612a73565b610426868686610c7c565b6000610a4f612467565b610aa96001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016847f000000000000000000000000000000000000000000000000000000000000000063ffffffff61123916565b6001600160a01b0384166000908152602081905260409020909150610ad4908263ffffffff61131c16565b9392505050565b6000828281811015610aff5760405162461bcd60e51b815260040161033390612a73565b610b0761243e565b610588888787610ddf565b610b1a612467565b6001600160a01b0383166000908152602081905260409020610b42908363ffffffff6113d016565b805190915063ffffffff166103095760405162461bcd60e51b815260040161033390612e98565b6060828281811015610b8d5760405162461bcd60e51b815260040161033390612a73565b85806001600160401b0381118015610ba457600080fd5b50604051908082528060200260200182016040528015610bde57816020015b610bcb61243e565b815260200190600190039081610bc35790505b50935060005b818110156103e557610c17898983818110610bfb57fe5b9050602002016020810190610c1091906124f2565b8888610ddf565b858281518110610c2357fe5b6020908102919091010152600101610be4565b6001600160a01b0383166000908152602081905260409020606090610c6290848463ffffffff61142616565b949350505050565b6000610306838363ffffffff61156616565b610c8461243e565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161415610cd057610cc96001806115a9565b9050610ad4565b600080610d2d6001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000167f00000000000000000000000000000000000000000000000000000000000000008863ffffffff61161d16565b6001600160a01b0388166000908152602081905260408120929450909250908190610d659063ffffffff808716908a908a9061168916565b9150915081610d865760405162461bcd60e51b815260040161033390612b58565b6001600160a01b03881660009081526020818152604080832084845260019081019092529091208054918101549091610dd29163ffffffff909116906001600160e01b03168787611783565b9998505050505050505050565b610de761243e565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161415610e2c57610cc96001806115a9565b600080610e896001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016877f000000000000000000000000000000000000000000000000000000000000000063ffffffff61161d16565b6001600160a01b0388166000908152602081905260408120929450909250908190610ec19063ffffffff808716908a908a9061168916565b9150915081610ee25760405162461bcd60e51b815260040161033390612ae9565b6001600160a01b03881660009081526020818152604080832084845260010190915290208054610dd29063ffffffff81169064010000000090046001600160e01b03168787611783565b610f34612487565b6000821580610f5a57505082516001600160e01b031682810290838281610f5757fe5b04145b610f765760405162461bcd60e51b815260040161033390612e55565b60408051602081019091529081529392505050565b5160701c90565b610f9a612450565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316846001600160a01b03161415611015576040518060400160405280610fe960016117a1565b516001600160e01b0316815260200161100260016117a1565b516001600160e01b031690529050610ad4565b61101d612467565b6110776001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016867f000000000000000000000000000000000000000000000000000000000000000063ffffffff61123916565b80516001600160a01b03871660009081526020819052604081209293509182916110af919063ffffffff908116908990899061168916565b91509150816110d05760405162461bcd60e51b815260040161033390612a03565b6110d8612467565b506001600160a01b03871660009081526020818152604080832084845260019081018352928190208151606081018352815463ffffffff80821683526001600160e01b036401000000009092048216958301959095529190940154169083015261059d90829086906117cc16565b60008061115485858561183b565b9050600080826001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b15801561119257600080fd5b505afa1580156111a6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111ca91906126b6565b5091509150816001600160701b03166000141580156111f157506001600160701b03811615155b979650505050505050565b60008061120e8363ffffffff16611859565b9050611220848263ffffffff61156616565b1561122f576000915050610309565b610c628484611861565b611241612467565b60008061124e85856118ea565b91509150600061125f878484611974565b9050600080600061126f846119d1565b925092509250886001600160a01b0316866001600160a01b031614156112cf5760405180606001604052808263ffffffff168152602001846001600160e01b03168152602001836001600160e01b03168152509650505050505050610ad4565b60405180606001604052808263ffffffff168152602001836001600160e01b03168152602001846001600160e01b03168152509650505050505050610ad4565b5050505050509392505050565b60008061132d848460000151611861565b9050801561030657600061134a846000015163ffffffff16611859565b905061135c858263ffffffff611be416565b915081156113c857600081815260018681016020908152604092839020875181549289015163ffffffff1990931663ffffffff91821617166401000000006001600160e01b0393841602178155928701519290910180546001600160e01b031916929091169190911790555b509392505050565b6113d8612467565b506000908152600191820160209081526040918290208251606081018452815463ffffffff8116825264010000000090046001600160e01b0390811693820193909352930154169082015290565b6060600061143384611859565b9050600061144084611859565b90508181116114615760405162461bcd60e51b815260040161033390612d65565b606061147487848463ffffffff611c4916565b90506000600282518161148357fe5b049050806001600160401b038111801561149c57600080fd5b506040519080825280602002602001820160405280156114d657816020015b6114c3612467565b8152602001906001900390816114bb5790505b5094506020820160005b8281101561130f57815160f01c86810160008181526001808e0160209081526040928390208351606081018552815463ffffffff811682526001600160e01b03640100000000909104811693820193909352920154169181019190915289516002909501948a908590811061155157fe5b602090810291909101015250506001016114e0565b600080600061157484611d50565b6000828152602088905260409020549193509150806115995760009350505050610309565b610426818363ffffffff611d5e16565b6115b161243e565b6000826001600160701b0316116115da5760405162461bcd60e51b815260040161033390612fa7565b6040805160208101909152806001600160701b038416600160701b600160e01b03607087901b168161160857fe5b046001600160e01b0316815250905092915050565b60008060008061162d86866118ea565b91509150600061163e888484611974565b9050866001600160a01b0316836001600160a01b031614156116755760008061166683611d68565b97509550611681945050505050565b60008061166683611ee3565b935093915050565b600080600061169786611859565b905060006116a487612044565b9050808611158186111581806116b75750805b1561174357600084815260018b0160205260409020805463ffffffff1680158015906116e857508063ffffffff168b115b80156116fc5750888163ffffffff168c0311155b80156117105750898163ffffffff168c0310155b15611727576001869750975050505050505061177a565b821561174057506000965086955061177a945050505050565b50505b87890361174f81611859565b9450600061175c89611859565b905061176f8c878363ffffffff61204c16565b975097505050505050505b94509492505050565b61178b61243e565b6117988483878603612184565b95945050505050565b6117a961243e565b50604080516020810190915260709190911b600160701b600160e01b0316815290565b6117d4612450565b82518251036117e161243e565b6117f48560200151856020015184612184565b90506117fe61243e565b6118118660400151866040015185612184565b6040805180820190915292516001600160e01b039081168452905116602083015250949350505050565b600080600061184a85856118ea565b91509150610426868383611974565b610e10900490565b6000806118738363ffffffff16611859565b90506107086118878463ffffffff16612044565b10611896576001915050610309565b600019810160009081526001850160205260409020805463ffffffff1615806118cf5750805461070863ffffffff918216860390911610155b156118df57600192505050610309565b506000949350505050565b600080826001600160a01b0316846001600160a01b0316141561191f5760405162461bcd60e51b815260040161033390612bc5565b826001600160a01b0316846001600160a01b03161061193f578284611942565b83835b90925090506001600160a01b03821661196d5760405162461bcd60e51b815260040161033390612f13565b9250929050565b600083838360405160200161198a92919061276b565b604051602081830303815290604052805190602001206040516020016119b1929190612792565b60408051601f198184030181529190528051602090910120949350505050565b60008060006119de6121c7565b9050836001600160a01b0316635909c0d56040518163ffffffff1660e01b815260040160206040518083038186803b158015611a1957600080fd5b505afa158015611a2d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611a51919061270a565b9250836001600160a01b0316635a3d54936040518163ffffffff1660e01b815260040160206040518083038186803b158015611a8c57600080fd5b505afa158015611aa0573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611ac4919061270a565b91506000806000866001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015611b0457600080fd5b505afa158015611b18573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611b3c91906126b6565b925092509250826001600160701b0316600014158015611b6457506001600160701b03821615155b611b805760405162461bcd60e51b815260040161033390612cf9565b8363ffffffff168163ffffffff1614611bda5780840363ffffffff8116611ba784866115a9565b516001600160e01b031602969096019563ffffffff8116611bc885856115a9565b516001600160e01b0316029590950194505b5050509193909250565b6000806000611bf284611d50565b600082815260208890526040812054929450909250611c17828463ffffffff611d5e16565b159050801561042657611c30828463ffffffff6121d116565b6000858152602089905260409020559695505050505050565b6060828203600080611c5a86611d50565b91509150600080611c6a87611d50565b9150915084600202601e016001600160401b0381118015611c8a57600080fd5b506040519080825280601f01601f191660200182016040528015611cb5576020820181803683370190505b50600080825285815260208b905260408120549197508591611cdd908663ffffffff6121d916565b905060005b84831015611d1e57611cfb89838363ffffffff6121e216565b600192909201600081815260208d90526040902054909290915061010001611ce2565b611d2e828563ffffffff61233316565b9150611d4189838363ffffffff6121e216565b50505050505050509392505050565b61010081049160ff90911690565b1c60019081161490565b600080611d736121c7565b9050826001600160a01b0316635909c0d56040518163ffffffff1660e01b815260040160206040518083038186803b158015611dae57600080fd5b505afa158015611dc2573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611de6919061270a565b91506000806000856001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015611e2657600080fd5b505afa158015611e3a573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611e5e91906126b6565b925092509250826001600160701b0316600014158015611e8657506001600160701b03821615155b611ea25760405162461bcd60e51b815260040161033390612c8d565b8363ffffffff168163ffffffff1614611edb5780840363ffffffff8116611ec984866115a9565b516001600160e01b0316029590950194505b505050915091565b600080611eee6121c7565b9050826001600160a01b0316635a3d54936040518163ffffffff1660e01b815260040160206040518083038186803b158015611f2957600080fd5b505afa158015611f3d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611f61919061270a565b91506000806000856001600160a01b0316630902f1ac6040518163ffffffff1660e01b815260040160606040518083038186803b158015611fa157600080fd5b505afa158015611fb5573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190611fd991906126b6565b925092509250826001600160701b031660001415801561200157506001600160701b03821615155b61201d5760405162461bcd60e51b815260040161033390612997565b8363ffffffff168163ffffffff1614611edb5780840363ffffffff8116611ec985856115a9565b610e10900690565b60008060008061205b86611d50565b909250905060008080808461209657856120875760405162461bcd60e51b815260040161033390612f4a565b600186039550600193506120dc565b50600085815260208b905260409020546120b6818663ffffffff61234116565b909350915082156120cd57818503840193506120dc565b60001990950194928401600101925b821580156120ea5750888411155b1561214b5750600085815260208b905260409020548061212e578561211c575060009650869550611681945050505050565b61010084019350600186039550612146565b6121378161237c565b91508160ff0384019350600192505b6120dc565b88841115612166575060009650869550611681945050505050565b60016121728784612433565b97509750505050505050935093915050565b61218c61243e565b60405180602001604052808363ffffffff168686036001600160e01b0316816121b157fe5b046001600160e01b031681525090509392505050565b63ffffffff421690565b6001901b1790565b600019901b1690565b816121ec5761232e565b82518060208501018060005b85811c15612328575b85811c60ff1661221357600801612201565b85811c60071680801561225d57600181146122625760028114612275576003811461228b57600481146122a857600581146122be57600681146122db57600781146122fb5761231e565b61231e565b86830160f01b845260028401935061231e565b86600184010160f01b845260028401935061231e565b86600184010160e01b87840160f01b17845260048401935061231e565b86600284010160f01b845260028401935061231e565b86600284010160e01b87840160f01b17845260048401935061231e565b86600284010160e01b87600185010160f01b17845260048401935061231e565b86600284010160d01b87600185010160e01b1787840160f01b1784526006840193505b50506003016121f8565b50030183525b505050565b60001960ff919091031c1690565b60008061010083900384901b8061235f57506000915081905061196d565b6001846101000361236f8361237c565b0392509250509250929050565b6000818061239c5760405162461bcd60e51b81526004016103339061294b565b600160801b81106123af576080918201911c5b6801000000000000000081106123c7576040918201911c5b64010000000081106123db576020918201911c5b6201000081106123ed576010918201911c5b61010081106123fe576008918201911c5b6010811061240e576004918201911c5b6004811061241e576002918201911c5b6002811061242d576001820191505b50919050565b610100919091020190565b60408051602081019091526000815290565b604080518082019091526000808252602082015290565b604080516060810182526000808252602082018190529181019190915290565b6040518060200160405280600081525090565b80356001600160a01b038116811461030957600080fd5b60008083601f8401126124c2578182fd5b5081356001600160401b038111156124d8578182fd5b602083019150836020808302850101111561196d57600080fd5b600060208284031215612503578081fd5b610306838361249a565b6000806040838503121561251f578081fd5b612529848461249a565b946020939093013593505050565b60008060006060848603121561254b578081fd5b612555858561249a565b95602085013595506040909401359392505050565b6000806000806080858703121561257f578081fd5b84356001600160a01b0381168114612595578182fd5b966020860135965060408601359560600135945092505050565b600080602083850312156125c1578182fd5b82356001600160401b038111156125d6578283fd5b6125e2858286016124b1565b90969095509350505050565b60008060008060008060808789031215612606578182fd5b86356001600160401b038082111561261c578384fd5b6126288a838b016124b1565b90985096506020890135915080821115612640578384fd5b5061264d89828a016124b1565b979a9699509760408101359660609091013595509350505050565b6000806000806060858703121561267d578384fd5b84356001600160401b03811115612692578485fd5b61269e878288016124b1565b90989097506020870135966040013595509350505050565b6000806000606084860312156126ca578283fd5b83516126d581613021565b60208501519093506126e681613021565b604085015190925063ffffffff811681146126ff578182fd5b809150509250925092565b60006020828403121561271b578081fd5b5051919050565b805163ffffffff1682526020808201516001600160e01b039081169184019190915260409182015116910152565b80516001600160e01b03908116835260209182015116910152565b6bffffffffffffffffffffffff19606093841b811682529190921b16601482015260280190565b6001600160f81b0319815260609290921b6bffffffffffffffffffffffff1916600183015260158201527f96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f603582015260550190565b6020808252825182820181905260009190848201906040850190845b81811015612822578351151583529284019291840191600101612804565b50909695505050505050565b6020808252825182820181905260009190848201906040850190845b818110156128225761285d838551612722565b928401926060929092019160010161284a565b602080825282518282018190526000919060409081850190868401855b828110156128b0576128a0848351612750565b928401929085019060010161288d565b5091979650505050505050565b6020808252825182820181905260009190848201906040850190845b81811015612822578351516001600160e01b0316835292840192918401916001016128d9565b6020808252825182820181905260009190848201906040850190845b818110156128225783516001600160901b03168352928401929184019160010161291b565b901515815260200190565b6020808252602c908201527f426974733a3a686967686573744269745365743a2056616c756520302068617360408201526b081b9bc8189a5d1cc81cd95d60a21b606082015260800190565b60208082526046908201527f556e697377617056324f7261636c654c6962726172793a3a63757272656e744360408201527f756d756c61746976655072696365313a205061697220686173206e6f2072657360608201526532b93b32b99760d11b608082015260a00190565b6020808252604a908201527f496e6465786564556e697377617056324f7261636c653a3a5f67657454776f5760408201527f617950726963653a204e6f20707269636520666f756e6420696e2070726f76696060820152693232b2103930b733b29760b11b608082015260a00190565b60208082526050908201527f496e6465786564556e697377617056324f7261636c653a3a76616c69644d696e60408201527f4d61783a204d696e696d756d206167652063616e206e6f74206265206869676860608201526f32b9103a3430b71036b0bc34b6bab69760811b608082015260a00190565b60208082526049908201527f496e6465786564556e697377617056324f7261636c653a3a5f676574546f6b6560408201527f6e50726963653a204e6f20707269636520666f756e6420696e2070726f76696460608201526832b2103930b733b29760b91b608082015260a00190565b60208082526047908201527f496e6465786564556e697377617056324f7261636c653a3a5f6765744574685060408201527f726963653a204e6f20707269636520666f756e6420696e2070726f7669646564606082015266103930b733b29760c91b608082015260a00190565b60208082526025908201527f556e697377617056324c6962726172793a204944454e544943414c5f41444452604082015264455353455360d81b606082015260800190565b6020808252605e908201527f496e6465786564556e697377617056324f7261636c653a3a636f6d707574654160408201527f766572616765546f6b656e73466f724574683a20546f6b656e7320616e64206160608201527f6d6f756e7473206861766520646966666572656e74206c656e677468732e0000608082015260a00190565b60208082526046908201527f556e697377617056324f7261636c654c6962726172793a3a63757272656e744360408201527f756d756c61746976655072696365303a205061697220686173206e6f2072657360608201526532b93b32b99760d11b608082015260a00190565b60208082526046908201527f556e697377617056324f7261636c654c6962726172793a3a63757272656e744360408201527f756d756c61746976655072696365733a205061697220686173206e6f2072657360608201526532b93b32b99760d11b608082015260a00190565b60208082526047908201527f496e646578656450726963654d61704c6962726172793a3a676574507269636560408201527f4f62736572766174696f6e73496e52616e67653a20496e76616c69642074696d606082015266652072616e676560c81b608082015260a00190565b6020808252605e908201527f496e6465786564556e697377617056324f7261636c653a3a636f6d707574654160408201527f766572616765457468466f72546f6b656e733a20546f6b656e7320616e64206160608201527f6d6f756e7473206861766520646966666572656e74206c656e677468732e0000608082015260a00190565b60208082526023908201527f4669786564506f696e743a204d554c5449504c49434154494f4e5f4f564552466040820152624c4f5760e81b606082015260800190565b60208082526055908201527f496e6465786564556e697377617056324f7261636c653a3a676574507269636560408201527f4f62736572766174696f6e496e57696e646f773a204e6f207072696365206f6260608201527439b2b93b32b21034b71033b4bb32b7103437bab91760591b608082015260a00190565b6020808252601e908201527f556e697377617056324c6962726172793a205a45524f5f414444524553530000604082015260600190565b60208082526038908201527f4b6579496e6465783a3a66696e644c6173745365744b65793a43616e206e6f7460408201527f2071756572792076616c7565207072696f7220746f20302e0000000000000000606082015260800190565b60208082526017908201527f4669786564506f696e743a204449565f42595f5a45524f000000000000000000604082015260600190565b606081016103098284612722565b604081016103098284612750565b90516001600160e01b0316815260200190565b6001600160901b0391909116815260200190565b6001600160701b038116811461303657600080fd5b5056fea2646970667358221220e5c4900cd3f704c5943ca83efc627e5bd677f362cf67bddb0fe7e3fbcd3a4db864736f6c63430006080033",
+  "devdoc": {
+    "methods": {
+      "canUpdatePrice(address)": {
+        "details": "Returns a boolean indicating whether the price of `token` can be updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation."
+      },
+      "canUpdatePrices(address[])": {
+        "details": "Returns a boolean array indicating whether the price of each token in `tokens` can be updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation."
+      },
+      "computeAverageEthForTokens(address,uint256,uint256,uint256)": {
+        "details": "Compute the average value of `tokenAmount` ether in terms of weth.   * Computes the time-weighted average price of `token` in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by `wethAmount`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeAverageEthForTokens(address[],uint256[],uint256,uint256)": {
+        "details": "Compute the average value of each amount of tokens in `tokenAmounts` in terms of the corresponding token in `tokens`.   * Computes the time-weighted average price of each token in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by the corresponding amount in `tokenAmounts`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeAverageEthPrice(address,uint256,uint256)": {
+        "details": "Returns the UQ112x112 struct representing the average price of weth in terms of `token`.   * Computes the time-weighted average price of weth in terms of `token` by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeAverageEthPrices(address[],uint256,uint256)": {
+        "details": "Returns the UQ112x112 structs representing the average price of weth in terms of each token in `tokens`.   * Computes the time-weighted average price of weth in terms of each token by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeAverageTokenPrice(address,uint256,uint256)": {
+        "details": "Returns the UQ112x112 struct representing the average price of `token` in terms of weth.   * Computes the time-weighted average price of `token` in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeAverageTokenPrices(address[],uint256,uint256)": {
+        "details": "Returns the UQ112x112 structs representing the average price of each token in `tokens` in terms of weth.   * Computes the time-weighted average price of each token in terms of weth by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeAverageTokensForEth(address,uint256,uint256,uint256)": {
+        "details": "Compute the average value of `wethAmount` ether in terms of `token`.   * Computes the time-weighted average price of weth in terms of the token by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by `wethAmount`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeAverageTokensForEth(address[],uint256[],uint256,uint256)": {
+        "details": "Compute the average value of each amount of ether in `wethAmounts` in terms of the corresponding token in `tokens`.   * Computes the time-weighted average price of weth in terms of each token by getting the current price from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old, then multiplies by the corresponding amount in `wethAmounts`.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeTwoWayAveragePrice(address,uint256,uint256)": {
+        "details": "Returns the TwoWayAveragePrice struct representing the average price of weth in terms of `token` and the average price of `token` in terms of weth.   * Computes the time-weighted average price of weth in terms of `token` and the price of `token` in terms of weth by getting the current prices from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "computeTwoWayAveragePrices(address[],uint256,uint256)": {
+        "details": "Returns the TwoWayAveragePrice structs representing the average price of weth in terms of each token in `tokens` and the average price of each token in terms of weth.   * Computes the time-weighted average price of weth in terms of each token and the price of each token in terms of weth by getting the current prices from Uniswap and searching for a historical price which is between `minTimeElapsed` and `maxTimeElapsed` seconds old.   * Note: `maxTimeElapsed` is only accurate to the nearest hour (rounded down) unless it is less than one hour. Note: `minTimeElapsed` is only accurate to the nearest hour (rounded up) unless it is less than one hour."
+      },
+      "getPriceObservationInWindow(address,uint256)": {
+        "details": "Returns the price observation for `token` recorded in `priceKey`. Reverts if no prices have been recorded for that key.",
+        "params": {
+          "priceKey": "Index of the hour to query",
+          "token": "Token to retrieve a price for"
+        }
+      },
+      "getPriceObservationsInRange(address,uint256,uint256)": {
+        "details": "Returns all price observations for `token` recorded between `timeFrom` and `timeTo`."
+      },
+      "hasPriceObservationInWindow(address,uint256)": {
+        "details": "Returns a boolean indicating whether a price was recorded for `token` at `priceKey`.",
+        "params": {
+          "priceKey": "Index of the hour to check",
+          "token": "Token to check if the oracle has a price for"
+        }
+      },
+      "updatePrice(address)": {
+        "details": "Attempts to update the price of `token` and returns a boolean indicating whether it was updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation."
+      },
+      "updatePrices(address[])": {
+        "details": "Attempts to update the price of each token in `tokens` and returns a boolean array indicating which tokens had their prices updated.   * Note: The price can be updated if there is no observation for the current hour and at least 30 minutes have passed since the last observation."
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {}
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 276,
+        "contract": "temp-contracts/IndexedUniswapV2Oracle.sol:IndexedUniswapV2Oracle",
+        "label": "_tokenPriceMaps",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_struct(IndexedPriceMap)2086_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_struct(IndexedPriceMap)2086_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct IndexedPriceMapLibrary.IndexedPriceMap)",
+        "numberOfBytes": "32",
+        "value": "t_struct(IndexedPriceMap)2086_storage"
+      },
+      "t_mapping(t_uint256,t_struct(PriceObservation)3065_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct PriceLibrary.PriceObservation)",
+        "numberOfBytes": "32",
+        "value": "t_struct(PriceObservation)3065_storage"
+      },
+      "t_mapping(t_uint256,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(IndexedPriceMap)2086_storage": {
+        "encoding": "inplace",
+        "label": "struct IndexedPriceMapLibrary.IndexedPriceMap",
+        "members": [
+          {
+            "astId": 2081,
+            "contract": "temp-contracts/IndexedUniswapV2Oracle.sol:IndexedUniswapV2Oracle",
+            "label": "keyIndex",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          },
+          {
+            "astId": 2085,
+            "contract": "temp-contracts/IndexedUniswapV2Oracle.sol:IndexedUniswapV2Oracle",
+            "label": "priceMap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_uint256,t_struct(PriceObservation)3065_storage)"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(PriceObservation)3065_storage": {
+        "encoding": "inplace",
+        "label": "struct PriceLibrary.PriceObservation",
+        "members": [
+          {
+            "astId": 3060,
+            "contract": "temp-contracts/IndexedUniswapV2Oracle.sol:IndexedUniswapV2Oracle",
+            "label": "timestamp",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint32"
+          },
+          {
+            "astId": 3062,
+            "contract": "temp-contracts/IndexedUniswapV2Oracle.sol:IndexedUniswapV2Oracle",
+            "label": "priceCumulativeLast",
+            "offset": 4,
+            "slot": "0",
+            "type": "t_uint224"
+          },
+          {
+            "astId": 3064,
+            "contract": "temp-contracts/IndexedUniswapV2Oracle.sol:IndexedUniswapV2Oracle",
+            "label": "ethPriceCumulativeLast",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint224"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_uint224": {
+        "encoding": "inplace",
+        "label": "uint224",
+        "numberOfBytes": "28"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      },
+      "t_uint32": {
+        "encoding": "inplace",
+        "label": "uint32",
+        "numberOfBytes": "4"
+      }
+    }
+  },
+  "gasEstimates": {
+    "creation": {
+      "codeDepositCost": "2479800",
+      "executionCost": "infinite",
+      "totalCost": "infinite"
+    },
+    "external": {
+      "canUpdatePrice(address)": "infinite",
+      "canUpdatePrices(address[])": "infinite",
+      "computeAverageEthForTokens(address,uint256,uint256,uint256)": "infinite",
+      "computeAverageEthForTokens(address[],uint256[],uint256,uint256)": "infinite",
+      "computeAverageEthPrice(address,uint256,uint256)": "infinite",
+      "computeAverageEthPrices(address[],uint256,uint256)": "infinite",
+      "computeAverageTokenPrice(address,uint256,uint256)": "infinite",
+      "computeAverageTokenPrices(address[],uint256,uint256)": "infinite",
+      "computeAverageTokensForEth(address,uint256,uint256,uint256)": "infinite",
+      "computeAverageTokensForEth(address[],uint256[],uint256,uint256)": "infinite",
+      "computeTwoWayAveragePrice(address,uint256,uint256)": "infinite",
+      "computeTwoWayAveragePrices(address[],uint256,uint256)": "infinite",
+      "getPriceObservationInWindow(address,uint256)": "infinite",
+      "getPriceObservationsInRange(address,uint256,uint256)": "infinite",
+      "hasPriceObservationInWindow(address,uint256)": "infinite",
+      "updatePrice(address)": "infinite",
+      "updatePrices(address[])": "infinite"
+    },
+    "internal": {
+      "_getEthPrice(address,uint256,uint256)": "infinite",
+      "_getTokenPrice(address,uint256,uint256)": "infinite",
+      "_getTwoWayPrice(address,uint256,uint256)": "infinite"
+    }
+  }
+}
