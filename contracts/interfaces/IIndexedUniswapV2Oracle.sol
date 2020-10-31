@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
 /* ==========  Libraries  ========== */
-import { PriceLibrary as Prices } from "../lib/PriceLibrary.sol";
+import "../lib/PriceLibrary.sol";
 import "../lib/FixedPoint.sol";
 
 
@@ -20,11 +20,11 @@ interface IIndexedUniswapV2Oracle {
 
   function getPriceObservationInWindow(
     address token, uint256 priceKey
-  ) external view returns (Prices.PriceObservation memory);
+  ) external view returns (PriceLibrary.PriceObservation memory);
 
   function getPriceObservationsInRange(
     address token, uint256 timeFrom, uint256 timeTo
-  ) external view returns (Prices.PriceObservation[] memory prices);
+  ) external view returns (PriceLibrary.PriceObservation[] memory prices);
 
 /* ==========  Price Update Queries  ========== */
 
@@ -36,7 +36,7 @@ interface IIndexedUniswapV2Oracle {
 
   function computeTwoWayAveragePrice(
     address token, uint256 minTimeElapsed, uint256 maxTimeElapsed
-  ) external view returns (Prices.TwoWayAveragePrice memory);
+  ) external view returns (PriceLibrary.TwoWayAveragePrice memory);
 
   function computeAverageTokenPrice(
     address token, uint256 minTimeElapsed, uint256 maxTimeElapsed
@@ -52,7 +52,7 @@ interface IIndexedUniswapV2Oracle {
     address[] calldata tokens,
     uint256 minTimeElapsed,
     uint256 maxTimeElapsed
-  ) external view returns (Prices.TwoWayAveragePrice[] memory);
+  ) external view returns (PriceLibrary.TwoWayAveragePrice[] memory);
 
   function computeAverageTokenPrices(
     address[] calldata tokens,
