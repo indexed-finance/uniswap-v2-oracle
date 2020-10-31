@@ -3,21 +3,21 @@ pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
 /* ==========  Internal Libraries  ========== */
-import { PriceLibrary as Prices } from "./lib/PriceLibrary.sol";
+import "./lib/PriceLibrary.sol";
 import "./lib/FixedPoint.sol";
-import { IndexedPriceMapLibrary as PriceMapLib } from "./lib/IndexedPriceMapLibrary.sol";
+import "./lib/IndexedPriceMapLibrary.sol";
 
 /* ==========  Internal Inheritance  ========== */
-import { IIndexedUniswapV2Oracle } from "./interfaces/IIndexedUniswapV2Oracle.sol";
+import "./interfaces/IIndexedUniswapV2Oracle.sol";
 
 
 contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
-  using Prices for address;
-  using Prices for Prices.PriceObservation;
-  using Prices for Prices.TwoWayAveragePrice;
+  using PriceLibrary for address;
+  using PriceLibrary for PriceLibrary.PriceObservation;
+  using PriceLibrary for PriceLibrary.TwoWayAveragePrice;
   using FixedPoint for FixedPoint.uq112x112;
   using FixedPoint for FixedPoint.uq144x112;
-  using PriceMapLib for PriceMapLib.IndexedPriceMap;
+  using IndexedPriceMapLibrary for IndexedPriceMapLibrary.IndexedPriceMap;
 
 
 /* ==========  Immutables  ========== */
@@ -28,7 +28,7 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
 /* ==========  Storage  ========== */
 
   // Price observations for tokens indexed by hour.
-  mapping(address => PriceMapLib.IndexedPriceMap) internal _tokenPriceMaps;
+  mapping(address => IndexedPriceMapLibrary.IndexedPriceMap) internal _tokenPriceMaps;
 
 /* ==========  Modifiers  ========== */
 
@@ -57,7 +57,7 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * and at least 30 minutes have passed since the last observation.
    */
   function updatePrice(address token) public override returns (bool/* didUpdatePrice */) {
-    Prices.PriceObservation memory observation = _uniswapFactory.observeTwoWayPrice(token, _weth);
+    PriceLibrary.PriceObservation memory observation = _uniswapFactory.observeTwoWayPrice(token, _weth);
     return _tokenPriceMaps[token].writePriceObservation(observation);
   }
 
@@ -106,7 +106,7 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
     external
     view
     override
-    returns (Prices.PriceObservation memory observation)
+    returns (PriceLibrary.PriceObservation memory observation)
   {
     observation = _tokenPriceMaps[token].getPriceInWindow(priceKey);
     require(
@@ -122,7 +122,7 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
     external
     view
     override
-    returns (Prices.PriceObservation[] memory prices)
+    returns (PriceLibrary.PriceObservation[] memory prices)
   {
     prices = _tokenPriceMaps[token].getPriceObservationsInRange(timeFrom, timeTo);
   }
@@ -181,7 +181,7 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
     view
     override
     validMinMax(minTimeElapsed, maxTimeElapsed)
-    returns (Prices.TwoWayAveragePrice memory)
+    returns (PriceLibrary.TwoWayAveragePrice memory)
   {
     return _getTwoWayPrice(token, minTimeElapsed, maxTimeElapsed);
   }
@@ -265,10 +265,10 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
     view
     override
     validMinMax(minTimeElapsed, maxTimeElapsed)
-    returns (Prices.TwoWayAveragePrice[] memory prices)
+    returns (PriceLibrary.TwoWayAveragePrice[] memory prices)
   {
     uint256 len = tokens.length;
-    prices = new Prices.TwoWayAveragePrice[](len);
+    prices = new PriceLibrary.TwoWayAveragePrice[](len);
     for (uint256 i = 0; i < len; i++) {
       prices[i] = _getTwoWayPrice(tokens[i], minTimeElapsed, maxTimeElapsed);
     }
@@ -486,16 +486,16 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
   )
     internal
     view
-    returns (Prices.TwoWayAveragePrice memory)
+    returns (PriceLibrary.TwoWayAveragePrice memory)
   {
     if (token == _weth) {
-      return Prices.TwoWayAveragePrice(
+      return PriceLibrary.TwoWayAveragePrice(
         FixedPoint.encode(1)._x,
         FixedPoint.encode(1)._x
       );
     }
     // Get the current cumulative price
-    Prices.PriceObservation memory current = _uniswapFactory.observeTwoWayPrice(token, _weth);
+    PriceLibrary.PriceObservation memory current = _uniswapFactory.observeTwoWayPrice(token, _weth);
     // Get the latest usable price
     (bool foundPrice, uint256 lastPriceKey) = _tokenPriceMaps[token].getLastPriceObservation(
       current.timestamp,
@@ -503,7 +503,7 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
       maxTimeElapsed
     );
     require(foundPrice, "IndexedUniswapV2Oracle::_getTwoWayPrice: No price found in provided range.");
-    Prices.PriceObservation memory previous = _tokenPriceMaps[token].priceMap[lastPriceKey];
+    PriceLibrary.PriceObservation memory previous = _tokenPriceMaps[token].priceMap[lastPriceKey];
     return previous.computeTwoWayAveragePrice(current);
   }
 
@@ -526,8 +526,8 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
       maxTimeElapsed
     );
     require(foundPrice, "IndexedUniswapV2Oracle::_getTokenPrice: No price found in provided range.");
-    Prices.PriceObservation storage previous = _tokenPriceMaps[token].priceMap[lastPriceKey];
-    return Prices.computeAveragePrice(
+    PriceLibrary.PriceObservation storage previous = _tokenPriceMaps[token].priceMap[lastPriceKey];
+    return PriceLibrary.computeAveragePrice(
       previous.timestamp,
       previous.priceCumulativeLast,
       timestamp,
@@ -554,8 +554,8 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
       maxTimeElapsed
     );
     require(foundPrice, "IndexedUniswapV2Oracle::_getEthPrice: No price found in provided range.");
-    Prices.PriceObservation storage previous = _tokenPriceMaps[token].priceMap[lastPriceKey];
-    return Prices.computeAveragePrice(
+    PriceLibrary.PriceObservation storage previous = _tokenPriceMaps[token].priceMap[lastPriceKey];
+    return PriceLibrary.computeAveragePrice(
       previous.timestamp,
       previous.ethPriceCumulativeLast,
       timestamp,
