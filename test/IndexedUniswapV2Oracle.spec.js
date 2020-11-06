@@ -265,6 +265,10 @@ describe('IndexedUniswapV2Oracle', async () => {
       timestampUpdated = timestamp;
     });
 
+    it('updatePrice() returns true if token is WETH', async () => {
+      expect(await oracle.callStatic.updatePrice(weth.address)).to.be.true;
+    });
+
     it('hasPriceObservationInWindow()', async () => {
       expect(await oracle.hasPriceObservationInWindow(token0.address, Math.floor(timestampUpdated / 3600))).to.be.true;
       expect(await oracle.hasPriceObservationInWindow(token0.address, 0)).to.be.false;
