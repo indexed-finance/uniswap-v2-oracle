@@ -57,6 +57,7 @@ contract IndexedUniswapV2Oracle is IIndexedUniswapV2Oracle {
    * and at least 30 minutes have passed since the last observation.
    */
   function updatePrice(address token) public override returns (bool/* didUpdatePrice */) {
+    if (token == _weth) return true;
     PriceLibrary.PriceObservation memory observation = _uniswapFactory.observeTwoWayPrice(token, _weth);
     return _tokenPriceMaps[token].writePriceObservation(observation);
   }
