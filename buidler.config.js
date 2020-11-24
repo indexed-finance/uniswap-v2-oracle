@@ -17,6 +17,11 @@ usePlugin("solidity-coverage");
 usePlugin("@nomiclabs/buidler-etherscan");
 
 const keys = {
+  mainnet: fromPrivateKey(
+    process.env.MAINNET_PVT_KEY
+      ? Buffer.from(process.env.MAINNET_PVT_KEY.slice(2), 'hex')
+      : randomBytes(32)
+  ).getPrivateKeyString(),
   rinkeby: fromPrivateKey(
     process.env.RINKEBY_PVT_KEY
       ? Buffer.from(process.env.RINKEBY_PVT_KEY.slice(2), 'hex')
@@ -201,7 +206,6 @@ internalTask('increaseTime', 'Increases the node timestamp')
 
 module.exports = {
   etherscan: {
-    // url: "https://api.etherscan.io/api",
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
   external: {
@@ -210,6 +214,9 @@ module.exports = {
       "node_modules/@uniswap/v2-periphery/build"
     ],
     deployments: {
+      mainnet: [
+        "node_modules/@indexed-finance/uniswap-deployments/mainnet"
+      ],
       rinkeby: [
         "node_modules/@indexed-finance/uniswap-deployments/rinkeby"
       ]
@@ -221,6 +228,11 @@ module.exports = {
     },
   },
   networks: {
+    mainnet: {
+      url: new InfuraProvider("mainnet", process.env.INFURA_PROJECT_ID).connection.url,
+      accounts: [keys.mainnet],
+      chainId: 1
+    },
     rinkeby: {
       url: new InfuraProvider("rinkeby", process.env.INFURA_PROJECT_ID).connection.url,
       accounts: [keys.rinkeby],
