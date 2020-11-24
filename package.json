@@ -12,7 +12,7 @@
   "scripts": {
     "build": "buidler compile",
     "deploy:rinkeby": "buidler --network rinkeby deploy --tags Oracle",
-    "verify:rinkeby": "buidler --network rinkeby etherscan-verify --constructor-args ./args.js 0xe351Dc5542C9aD053c75C4e712ee6Bc5EA92AE31",
+    "deploy:mainnet": "buidler --network mainnet deploy --tags Oracle",
     "coverage": "buidler coverage --network coverage --solcoverjs ./.solcover.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
