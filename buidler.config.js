@@ -4,6 +4,7 @@ const Table = require('cli-table3');
 const Logger = require('./lib/logger');
 const Deployer = require('./lib/deployer');
 const { toBN, toHex, oneToken } = require('./lib/bn');
+const path = require('path');
 
 require('dotenv').config();
 
@@ -233,6 +234,11 @@ module.exports = {
       accounts: [keys.mainnet],
       chainId: 1
     },
+    polygon: {
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts: [keys.mainnet],
+      chainId: 137
+    },
     rinkeby: {
       url: new InfuraProvider("rinkeby", process.env.INFURA_PROJECT_ID).connection.url,
       accounts: [keys.rinkeby],
@@ -245,6 +251,14 @@ module.exports = {
         hostname: "localhost",
       }),
     }
+  },
+  paths: {
+    sources: path.join(__dirname, 'contracts'),
+    tests: path.join(__dirname, 'test'),
+    cache: path.join(__dirname, 'cache'),
+    artifacts: path.join(__dirname, 'artifacts'),
+    deploy: path.join(__dirname, "deploy"),
+    deployments: path.join(__dirname, "deployments")
   },
   solc: {
     version: "0.6.8",
