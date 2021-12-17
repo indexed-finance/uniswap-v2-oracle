@@ -10,11 +10,14 @@
     "deployments/mainnet"
   ],
   "scripts": {
+    "clean:build": "rimraf ./artifacts && rimraf ./cache && npm run clean:temp",
+    "clean:temp": "buidler-verify-helper --clean",
+    "prepare-build": "npm run clean:build && buidler-verify-helper --prepare",
+    "prepare:oracle": "yarn prepare-build --contracts IndexedUniswapV2Oracle",
+    "deploy:oracle": "yarn prepare:oracle && buidler deploy --tags Oracle --network",
     "build": "buidler compile",
-    "deploy:rinkeby": "buidler --network rinkeby deploy --tags Oracle",
-    "deploy:mainnet": "buidler --network mainnet deploy --tags Oracle",
     "coverage": "buidler coverage --network coverage --solcoverjs ./.solcover.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "buidler --network polygon run scripts/test.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +30,7 @@
     "bn.js": "^5.1.3",
     "buidler-deploy": "^0.6.0-beta.34",
     "buidler-ethers-v5": "^0.2.3",
+    "buidler-verify-helper": "^1.0.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.0",
@@ -39,6 +43,7 @@
     "moment": "^2.29.1",
     "prettier": "^2.1.2",
     "prettier-plugin-solidity": "^1.0.0-alpha.59",
+    "rimraf": "^3.0.2",
     "solidity-coverage": "^0.7.11",
     "solium": "^1.2.5",
     "solium-plugin-security": "^0.1.1"
