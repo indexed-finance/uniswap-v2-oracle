@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.6.0;
 
+import "./FullMath.sol";
+
 
 /************************************************************************************************
 From https://github.com/Uniswap/uniswap-lib/blob/master/contracts/libraries/FixedPoint.sol
@@ -16,6 +18,8 @@ Subject to the GPL-3.0 license
 
 // a library for handling binary fixed point numbers (https://en.wikipedia.org/wiki/Q_(number_format))
 library FixedPoint {
+  using FullMath for uint256;
+
   // range: [0, 2**112 - 1]
   // resolution: 1 / 2**112
   struct uq112x112 {
@@ -57,6 +61,13 @@ library FixedPoint {
       "FixedPoint: MULTIPLICATION_OVERFLOW"
     );
     return uq144x112(z);
+  }
+
+  // multiply a UQ112x112 by a UQ112x112, returning a UQ112x112
+  // reverts on overflow
+  function mul(uq112x112 memory self, uq112x112 memory y) internal pure returns (uq112x112 memory) {
+    uint224 z = uint224(uint256(self._x).mulDiv(y._x, Q112));
+    return uq112x112(z);
   }
 
   // returns a UQ112x112 which represents the ratio of the numerator to the denominator
