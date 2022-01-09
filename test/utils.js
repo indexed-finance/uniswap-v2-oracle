@@ -65,6 +65,17 @@ function encodePrice(_tokenReserves, _wethReserves, _blockTimestamp, lastPrice =
   };
 }
 
+const Q112 = BigNumber.from(2).pow(112);
+
+function convertMaticPriceToEthPrice(tokenPrice, maticPrice) {
+  const ethPriceAverage = tokenPrice.ethPriceAverage.mul(maticPrice.ethPriceAverage).div(Q112);
+  const tokenPriceAverage = tokenPrice.tokenPriceAverage.mul(maticPrice.tokenPriceAverage).div(Q112);
+  return {
+    ethPriceAverage,
+    tokenPriceAverage
+  }
+}
+
 async function getTransactionTimestamp(_tx) {
   const tx = await Promise.resolve(_tx)
   const receipt = await tx.wait();
@@ -76,11 +87,13 @@ module.exports = {
   HOUR,
   DAY,
   WEEK,
+  Q112,
   expandTo18Decimals,
   from18Decimals,
   fastForward,
   fastForwardToNextHour,
   fastForwardToPeriodStart,
   encodePrice,
-  getTransactionTimestamp
+  getTransactionTimestamp,
+  convertMaticPriceToEthPrice
 }
