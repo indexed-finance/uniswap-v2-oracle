@@ -15,10 +15,12 @@
     "clean:temp": "buidler-verify-helper --clean",
     "prepare-build": "npm run clean:build && buidler-verify-helper --prepare",
     "prepare:oracle": "yarn prepare-build --contracts IndexedUniswapV2Oracle",
+    "prepare:fallthrough": "yarn prepare-build --contracts OracleFallthrough",
     "deploy:oracle": "yarn prepare:oracle && buidler deploy --tags Oracle --network",
+    "deploy:fallthrough": "yarn prepare:fallthrough && buidler deploy --tags OracleFallthrough --network polygon",
     "build": "buidler compile",
     "coverage": "buidler coverage --network coverage --solcoverjs ./.solcover.js",
-    "test": "buidler --network polygon run scripts/test.js"
+    "test": "buidler test"
   },
   "keywords": [],
   "author": "",
