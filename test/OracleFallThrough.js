@@ -137,10 +137,10 @@ describe('OracleFallthrough', async () => {
     it('Should revert if token is weth or matic', async () => {
       await expect(
         oracle.setUseMaticMultiple([weth.address], [true])
-      ).to.be.rejectedWith(/OracleFallthrough::setUseMatic: Can not set useMatic for weth or matic/g);
+      ).to.be.rejectedWith(/OracleFallthrough::setUseMaticMultiple: Can not set useMatic for weth or matic/g);
       await expect(
         oracle.setUseMaticMultiple([wmatic.address], [true])
-      ).to.be.rejectedWith(/OracleFallthrough::setUseMatic: Can not set useMatic for weth or matic/g);
+      ).to.be.rejectedWith(/OracleFallthrough::setUseMaticMultiple: Can not set useMatic for weth or matic/g);
     })
   })
 
@@ -461,6 +461,12 @@ describe('OracleFallthrough', async () => {
       timestampUpdated = timestamp;
     })
 
+    it('Should revert if lengths do not match', async () => {
+      await expect(
+        oracle['computeAverageEthForTokens(address[],uint256[],uint256,uint256)']([token0.address], [1, 1], 1, 2 * HOUR)
+      ).to.be.rejectedWith(/OracleFallthrough::computeAverageEthForTokens: Tokens and amounts have different lengths/g);
+    })
+
     it('Should use correct oracle and do conversion if necessary', async () => {
       const amountToken = expandTo18Decimals(10);
       const expectedValue0 = expectedPrice0.tokenPriceAverage.mul(amountToken).div(Q112);
@@ -548,6 +554,12 @@ describe('OracleFallthrough', async () => {
       expectedPrice1 = encodePrice(0, 0, +timestamp, expectedPrice1);
       expectedPriceMatic = encodePrice(0, 0, +timestamp, expectedPriceMatic);
       timestampUpdated = timestamp;
+    })
+
+    it('Should revert if lengths do not match', async () => {
+      await expect(
+        oracle['computeAverageTokensForEth(address[],uint256[],uint256,uint256)']([token0.address], [1, 1], 1, 2 * HOUR)
+      ).to.be.rejectedWith(/OracleFallthrough::computeAverageTokensForEth: Tokens and amounts have different lengths/g);
     })
 
     it('Should use correct oracle and do conversion if necessary', async () => {
