@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /* ==========  Internal Libraries  ========== */
 import "./lib/PriceLibrary.sol";
 import "./lib/FixedPoint.sol";
-import "./lib/IndexedPriceMapLibrary.sol";
 
 /* ==========  Internal Inheritance  ========== */
 import "./interfaces/IIndexedUniswapV2Oracle.sol";
